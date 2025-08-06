@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Inmobiliario El Pueblo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            height: fit-content;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .main-content {
+            flex: 1;
+        }
+
+        .header {
+            background: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .filter-btn {
+            padding: 12px 20px;
+            border: 2px solid #e9ecef;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            border-color: #dc2626;
+            color: #dc2626;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 0 4px;
+        }
+
+        .results-count {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .sort-options {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .sort-btn {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .sort-btn:hover, .sort-btn.active {
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        .filter-section {
+            margin-bottom: 32px;
+        }
+
+        .filter-title {
+            color: #dc2626;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .filter-group {
+            margin-bottom: 20px;
+        }
+
+        .filter-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        .filter-select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            background: white;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .price-range {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .price-input {
+            flex: 1;
+            padding: 10px 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .filter-button {
+            width: 100%;
+            padding: 14px;
+            background: #dc2626;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .filter-button:hover {
+            background: #b91c1c;
+        }
+
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .property-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .property-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+        }
+
+        .property-image {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .property-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(220, 38, 38, 0.9);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .property-info {
+            padding: 20px;
+        }
+
+        .property-type {
+            color: #dc2626;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .property-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .property-location {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .property-details {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .property-detail {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .property-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .property-price-usd {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .property-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .whatsapp-btn {
+            background: #25d366;
+            color: white;
+        }
+
+        .whatsapp-btn:hover {
+            background: #22c55e;
+        }
+
+        .contact-btn {
+            background: #dc2626;
+            color: white;
+        }
+
+        .contact-btn:hover {
+            background: #b91c1c;
+        }
+
+        .favorite-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .favorite-btn:hover {
+            background: white;
+            color: #ff4444;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                padding: 16px;
+            }
+
+            .sidebar {
+                width: 100%;
+                order: 2;
+            }
+
+            .properties-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-bar {
+                flex-direction: column;
+            }
+
+            .search-input, .filter-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="filter-section">
+                <h3 class="filter-title">Precio</h3>
+                <div class="filter-group">
+                    <label class="filter-label">Mínimo</label>
+                    <input type="text" class="price-input" placeholder="Precio Mínimo" value="S/ 50,000">
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Máximo</label>
+                    <input type="text" class="price-input" placeholder="Precio Máximo" value="S/ 500,000">
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3 class="filter-title">Tipo de Propiedad</h3>
+                <div class="filter-group">
+                    <select class="filter-select">
+                        <option>Todos los tipos</option>
+                        <option>Casa</option>
+                        <option>Departamento</option>
+                        <option>Terreno</option>
+                        <option>Local Comercial</option>
+                        <option>Oficina</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3 class="filter-title">Distrito</h3>
+                <div class="filter-group">
+                    <select class="filter-select">
+                        <option>Todos los distritos</option>
+                        <option>Cerro Colorado</option>
+                        <option>Yanahuara</option>
+                        <option>Cayma</option>
+                        <option>Miraflores</option>
+                        <option>Paucarpata</option>
+                        <option>José Luis Bustamante</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3 class="filter-title">Dormitorios</h3>
+                <div class="filter-group">
+                    <select class="filter-select">
+                        <option>Cualquier cantidad</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4+</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3 class="filter-title">Área</h3>
+                <div class="filter-group">
+                    <label class="filter-label">Área mínima (m²)</label>
+                    <input type="number" class="price-input" placeholder="0">
+                </div>
+            </div>
+
+            <button class="filter-button">Filtrar Propiedades</button>
+        </aside>
+
+        <main class="main-content">
+            <div class="results-header">
+                <div class="results-count">127 Propiedades en venta - Cerro Colorado, Arequipa</div>
+                <div class="sort-options">
+                    <button class="sort-btn">Ver mapa 🗺</button>
+                    <button class="sort-btn active">Ordenar ↕</button>
+                </div>
+            </div>
+
+            <div class="properties-grid">
+                <div class="property-card">
+                    <div class="property-image" style="background-image: url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=250&fit=crop');">
+                        <div class="property-badge">Destacado</div>
+                        <button class="favorite-btn">♡</button>
+                    </div>
+                    <div class="property-info">
+                        <div class="property-type">Casa</div>
+                        <div class="property-title">Casa Moderna en Challapampa</div>
+                        <div class="property-location">Cerro Colorado, Arequipa</div>
+                        <div class="property-details">
+                            <div class="property-detail">🏠 415 m²</div>
+                            <div class="property-detail">🛏 3 dorm</div>
+                            <div class="property-detail">🚗 2 est</div>
+                        </div>
+                        <div class="property-price">S/ 320,000</div>
+                        <div class="property-price-usd">USD 85,000</div>
+                        <div class="property-actions">
+                            <button class="action-btn whatsapp-btn">WhatsApp</button>
+                            <button class="action-btn contact-btn">Contactar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="property-card">
+                    <div class="property-image" style="background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=250&fit=crop');">
+                        <div class="property-badge">Nuevo</div>
+                        <button class="favorite-btn">♡</button>
+                    </div>
+                    <div class="property-info">
+                        <div class="property-type">Departamento</div>
+                        <div class="property-title">Departamento en Edificio Premium</div>
+                        <div class="property-location">Yanahuara, Arequipa</div>
+                        <div class="property-details">
+                            <div class="property-detail">🏠 120 m²</div>
+                            <div class="property-detail">🛏 2 dorm</div>
+                            <div class="property-detail">🚗 1 est</div>
+                        </div>
+                        <div class="property-price">S/ 280,000</div>
+                        <div class="property-price-usd">USD 74,500</div>
+                        <div class="property-actions">
+                            <button class="action-btn whatsapp-btn">WhatsApp</button>
+                            <button class="action-btn contact-btn">Contactar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="property-card">
+                    <div class="property-image" style="background-image: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400&h=250&fit=crop');">
+                        <button class="favorite-btn">♡</button>
+                    </div>
+                    <div class="property-info">
+                        <div class="property-type">Terreno</div>
+                        <div class="property-title">Terreno Residencial con Vista</div>
+                        <div class="property-location">Cayma, Arequipa</div>
+                        <div class="property-details">
+                            <div class="property-detail">🏠 340 m²</div>
+                            <div class="property-detail">📍 Esquina</div>
+                            <div class="property-detail">⚡ Servicios</div>
+                        </div>
+                        <div class="property-price">S/ 150,000</div>
+                        <div class="property-price-usd">USD 39,900</div>
+                        <div class="property-actions">
+                            <button class="action-btn whatsapp-btn">WhatsApp</button>
+                            <button class="action-btn contact-btn">Contactar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="property-card">
+                    <div class="property-image" style="background-image: url('https://images.unsplash.com/photo-1486304873000-235643847519?w=400&h=250&fit=crop');">
+                        <div class="property-badge">Oportunidad</div>
+                        <button class="favorite-btn">♡</button>
+                    </div>
+                    <div class="property-info">
+                        <div class="property-type">Casa</div>
+                        <div class="property-title">Casa Familiar en Zona Tranquila</div>
+                        <div class="property-location">Miraflores, Arequipa</div>
+                        <div class="property-details">
+                            <div class="property-detail">🏠 200 m²</div>
+                            <div class="property-detail">🛏 4 dorm</div>
+                            <div class="property-detail">🌳 Jardín</div>
+                        </div>
+                        <div class="property-price">S/ 450,000</div>
+                        <div class="property-price-usd">USD 119,700</div>
+                        <div class="property-actions">
+                            <button class="action-btn whatsapp-btn">WhatsApp</button>
+                            <button class="action-btn contact-btn">Contactar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="property-card">
+                    <div class="property-image" style="background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&h=250&fit=crop');">
+                        <button class="favorite-btn">♡</button>
+                    </div>
+                    <div class="property-info">
+                        <div class="property-type">Local Comercial</div>
+                        <div class="property-title">Local en Avenida Principal</div>
+                        <div class="property-location">Cercado, Arequipa</div>
+                        <div class="property-details">
+                            <div class="property-detail">🏪 80 m²</div>
+                            <div class="property-detail">🚪 2 pisos</div>
+                            <div class="property-detail">🚗 Estac.</div>
+                        </div>
+                        <div class="property-price">S/ 380,000</div>
+                        <div class="property-price-usd">USD 101,000</div>
+                        <div class="property-actions">
+                            <button class="action-btn whatsapp-btn">WhatsApp</button>
+                            <button class="action-btn contact-btn">Contactar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="property-card">
+                    <div class="property-image" style="background-image: url('https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=400&h=250&fit=crop');">
+                        <div class="property-badge">Financiamiento</div>
+                        <button class="favorite-btn">♡</button>
+                    </div>
+                    <div class="property-info">
+                        <div class="property-type">Departamento</div>
+                        <div class="property-title">Depto. con Vista al Misti</div>
+                        <div class="property-location">Cayma, Arequipa</div>
+                        <div class="property-details">
+                            <div class="property-detail">🏠 95 m²</div>
+                            <div class="property-detail">🛏 2 dorm</div>
+                            <div class="property-detail">🌄 Vista</div>
+                        </div>
+                        <div class="property-price">S/ 220,000</div>
+                        <div class="property-price-usd">USD 58,500</div>
+                        <div class="property-actions">
+                            <button class="action-btn whatsapp-btn">WhatsApp</button>
+                            <button class="action-btn contact-btn">Contactar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Funcionalidad interactiva
+        document.addEventListener('DOMContentLoaded', function() {
+            // Filtros interactivos
+            const filterButton = document.querySelector('.filter-button');
+            const favoriteButtons = document.querySelectorAll('.favorite-btn');
+            const propertyCards = document.querySelectorAll('.property-card');
+            
+            filterButton.addEventListener('click', function() {
+                this.style.background = '#b91c1c';
+                this.textContent = 'Filtrando...';
+                
+                setTimeout(() => {
+                    this.style.background = '#dc2626';
+                    this.textContent = 'Filtrar Propiedades';
+                    alert('Filtros aplicados correctamente');
+                }, 1000);
+            });
+
+            // Favoritos
+            favoriteButtons.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    this.textContent = this.textContent === '♡' ? '♥' : '♡';
+                    this.style.color = this.textContent === '♥' ? '#ff4444' : '#333';
+                });
+            });
+
+            // Click en tarjetas
+            propertyCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const title = this.querySelector('.property-title').textContent;
+                    alert(`Ver detalles de: ${title}`);
+                });
+            });
+
+            // Botones WhatsApp y Contactar
+            document.querySelectorAll('.whatsapp-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const propertyTitle = this.closest('.property-card').querySelector('.property-title').textContent;
+                    alert(`Contactando por WhatsApp para: ${propertyTitle}`);
+                });
+            });
+
+            document.querySelectorAll('.contact-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const propertyTitle = this.closest('.property-card').querySelector('.property-title').textContent;
+                    alert(`Formulario de contacto para: ${propertyTitle}`);
+                });
+            });
+
+            // Búsqueda
+            const searchInput = document.querySelector('.search-input');
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    alert(`Buscando propiedades en: ${this.value}`);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
