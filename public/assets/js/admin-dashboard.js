@@ -2,10 +2,9 @@
 class AdminDashboard {
     constructor() {
         this.supabase = window.supabaseClient;
-        this.currentSection = 'dashboard';
+        this.currentSection = 'properties';
         this.data = {
-            properties: [],
-            stats: {}
+            properties: []
         };
         this.init();
     }
@@ -47,7 +46,9 @@ class AdminDashboard {
         // Add property button
         const addPropertyButton = document.getElementById('addPropertyButton');
         if (addPropertyButton) {
-            addPropertyButton.addEventListener('click', this.showPropertyModal.bind(this));
+            addPropertyButton.addEventListener('click', () => {
+                this.showPropertyModal(null);
+            });
         }
 
         // Filter buttons for inquiries
@@ -73,6 +74,32 @@ class AdminDashboard {
                 }
             });
         }
+
+        // Event delegation for action buttons in the table
+        const propertiesTable = document.getElementById('propertiesTable');
+        if (propertiesTable) {
+            propertiesTable.addEventListener('click', (e) => {
+                const button = e.target.closest('button[data-action]');
+                if (button) {
+                    const id = button.dataset.id; // Remove parseInt for UUID
+                    const action = button.dataset.action;
+                    
+                    console.log('Button clicked:', { id, action }); // Debug log
+                    
+                    switch (action) {
+                        case 'edit':
+                            this.editProperty(id);
+                            break;
+                        case 'delete':
+                            this.deleteProperty(id);
+                            break;
+                        case 'view':
+                            this.viewProperty(id);
+                            break;
+                    }
+                }
+            });
+        }
     }
 
     setupNavigation() {
@@ -91,32 +118,18 @@ class AdminDashboard {
         });
         document.querySelector(`[data-section="${sectionName}"]`).parentElement.classList.add('active');
 
-        // Update active content section
-        document.querySelectorAll('.content-section').forEach(section => {
-            section.classList.remove('active');
-        });
-        document.getElementById(`${sectionName}-section`).classList.add('active');
-
         // Update page title
-        const titles = {
-            dashboard: 'Dashboard',
-            properties: 'Propiedades'
-        };
-        document.getElementById('pageTitle').textContent = titles[sectionName] || 'Dashboard';
+        document.getElementById('pageTitle').textContent = 'Propiedades';
 
-        this.currentSection = sectionName;
-        this.loadSectionData(sectionName);
+        this.currentSection = 'properties';
     }
 
     async loadInitialData() {
         this.showLoading(true);
         
         try {
-            // Only load properties and basic stats for simplified admin
-            await Promise.all([
-                this.loadDashboardStats(),
-                this.loadProperties()
-            ]);
+            // Load only properties
+            await this.loadProperties();
             this.renderPropertiesTable();
         } catch (error) {
             console.error('Error loading initial data:', error);
@@ -126,71 +139,9 @@ class AdminDashboard {
         }
     }
 
-    async loadSectionData(section) {
-        switch (section) {
-            case 'dashboard':
-                await this.loadDashboardStats();
-                break;
-            case 'properties':
-                await this.loadProperties();
-                this.renderPropertiesTable();
-                break;
-            default:
-                // Only handle dashboard and properties sections
-                break;
-        }
-    }
-
-    async loadDashboardStats() {
-        try {
-            // Load properties count
-            const { data: properties, error: propError } = await this.supabase
-                .from('properties')
-                .select('id, price');
-            
-            if (propError) throw propError;
-
-            // Load inquiries count
-            const { data: inquiries, error: inquError } = await this.supabase
-                .from('inquiries')
-                .select('id, created_at');
-            
-            if (inquError) throw inquError;
-
-            // Calculate stats
-            const totalProperties = properties?.length || 0;
-            const totalValue = properties?.reduce((sum, prop) => sum + (prop.price || 0), 0) || 0;
-            const newInquiries = inquiries?.filter(inq => {
-                const created = new Date(inq.created_at);
-                const today = new Date();
-                return created.toDateString() === today.toDateString();
-            }).length || 0;
-
-            this.data.stats = {
-                totalProperties,
-                viewsToday: Math.floor(Math.random() * 150) + 50, // Mock data
-                newInquiries,
-                totalValue
-            };
-
-            this.renderDashboardStats();
-        } catch (error) {
-            console.error('Error loading dashboard stats:', error);
-        }
-    }
-
-    renderDashboardStats() {
-        const { totalProperties, viewsToday, newInquiries, totalValue } = this.data.stats;
-        
-        document.getElementById('totalProperties').textContent = totalProperties;
-        document.getElementById('viewsToday').textContent = viewsToday;
-        document.getElementById('newInquiries').textContent = newInquiries;
-        document.getElementById('totalValue').textContent = 
-            `S/ ${totalValue.toLocaleString('es-PE')}`;
-    }
-
     async loadProperties() {
         try {
+            console.log('Loading properties from database...'); // Debug log
             const { data, error } = await this.supabase
                 .from('properties')
                 .select('*')
@@ -198,6 +149,7 @@ class AdminDashboard {
 
             if (error) throw error;
 
+            console.log('Properties loaded:', data); // Debug log
             this.data.properties = data || [];
             this.renderPropertiesTable();
         } catch (error) {
@@ -212,7 +164,10 @@ class AdminDashboard {
 
         tbody.innerHTML = '';
 
+        console.log('Rendering properties:', this.data.properties); // Debug log
+
         this.data.properties.forEach(property => {
+            console.log('Property ID:', property.id, 'Type:', typeof property.id); // Debug log
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>#${property.id}</td>
@@ -238,13 +193,13 @@ class AdminDashboard {
                 </td>
                 <td>
                     <div class="action-buttons">
-                        <button class="btn-edit" onclick="window.adminDashboard.editProperty(${property.id})" title="Editar">
+                        <button class="btn-edit" data-id="${property.id}" data-action="edit" title="Editar">
                             <span>✏️</span> Editar
                         </button>
-                        <button class="btn-delete" onclick="window.adminDashboard.deleteProperty(${property.id})" title="Eliminar">
+                        <button class="btn-delete" data-id="${property.id}" data-action="delete" title="Eliminar">
                             <span>🗑️</span> Eliminar
                         </button>
-                        <button class="btn-view" onclick="window.adminDashboard.viewProperty(${property.id})" title="Ver detalles">
+                        <button class="btn-view" data-id="${property.id}" data-action="view" title="Ver detalles">
                             <span>👁️</span> Ver
                         </button>
                     </div>
@@ -494,13 +449,21 @@ class AdminDashboard {
             </div>
             
             <div class="form-actions">
-                <button type="button" onclick="window.adminDashboard.hidePropertyModal()">Cancelar</button>
-                <button type="submit">${propertyData ? 'Actualizar' : 'Guardar'} Propiedad</button>
+                <button type="button" class="btn-cancel-form">Cancelar</button>
+                <button type="submit" class="btn-submit-form">${propertyData ? 'Actualizar' : 'Guardar'} Propiedad</button>
             </div>
         `;
 
         // Add form submit handler
         form.addEventListener('submit', this.handlePropertySubmit.bind(this));
+        
+        // Add cancel button handler
+        const cancelBtn = form.querySelector('.btn-cancel-form');
+        if (cancelBtn) {
+            cancelBtn.addEventListener('click', () => {
+                this.hidePropertyModal();
+            });
+        }
     }
 
     async handlePropertySubmit(event) {
@@ -599,16 +562,48 @@ class AdminDashboard {
             }
             .status-disponible { background: #dcfce7; color: #166534; }
             .status-vendido { background: #fee2e2; color: #dc2626; }
-            .action-buttons { display: flex; gap: 4px; }
+            .action-buttons { display: flex; gap: 8px; justify-content: center; align-items: center; }
             .action-buttons button { 
-                border: none; 
-                background: none; 
-                cursor: pointer; 
-                padding: 4px; 
-                border-radius: 4px; 
-                transition: background 0.2s; 
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                padding: 8px 12px;
+                border: none;
+                border-radius: 6px;
+                font-size: 12px;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                min-width: 70px;
+                justify-content: center;
             }
-            .action-buttons button:hover { background: #f1f5f9; }
+            .action-buttons .btn-edit {
+                background: #3b82f6;
+                color: white;
+            }
+            .action-buttons .btn-edit:hover {
+                background: #2563eb;
+                transform: translateY(-1px);
+                box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+            }
+            .action-buttons .btn-delete {
+                background: #ef4444;
+                color: white;
+            }
+            .action-buttons .btn-delete:hover {
+                background: #dc2626;
+                transform: translateY(-1px);
+                box-shadow: 0 4px 8px rgba(239, 68, 68, 0.3);
+            }
+            .action-buttons .btn-view {
+                background: #10b981;
+                color: white;
+            }
+            .action-buttons .btn-view:hover {
+                background: #059669;
+                transform: translateY(-1px);
+                box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
+            }
         `;
         document.head.appendChild(style);
     }
@@ -760,8 +755,96 @@ class AdminDashboard {
     }
 
     viewProperty(id) {
-        // Open property details in new tab
-        window.open(`../property-detail.html?id=${id}`, '_blank');
+        console.log('Viewing property with ID:', id); // Debug log
+        
+        // Find the property in our data
+        const property = this.data.properties.find(p => p.id === id);
+        if (!property) {
+            this.showError('Propiedad no encontrada');
+            return;
+        }
+
+        // Create a simple view modal
+        this.showPropertyViewModal(property);
+    }
+
+    showPropertyViewModal(property) {
+        // Create modal
+        const modal = document.createElement('div');
+        modal.className = 'modal view-modal';
+        modal.innerHTML = `
+            <div class="modal-content view-content">
+                <span class="close">&times;</span>
+                <h2>Detalles de la Propiedad</h2>
+                <div class="property-details">
+                    <div class="detail-group">
+                        <label>ID:</label>
+                        <span>${property.id}</span>
+                    </div>
+                    <div class="detail-group">
+                        <label>Título:</label>
+                        <span>${property.title}</span>
+                    </div>
+                    <div class="detail-group">
+                        <label>Tipo:</label>
+                        <span>${property.property_type}</span>
+                    </div>
+                    <div class="detail-group">
+                        <label>Precio:</label>
+                        <span>S/ ${property.price?.toLocaleString('es-PE')}</span>
+                    </div>
+                    <div class="detail-group">
+                        <label>Área:</label>
+                        <span>${property.area} m²</span>
+                    </div>
+                    <div class="detail-group">
+                        <label>Ubicación:</label>
+                        <span>${property.location}, ${property.district}</span>
+                    </div>
+                    <div class="detail-group">
+                        <label>Habitaciones:</label>
+                        <span>${property.bedrooms || 'N/A'}</span>
+                    </div>
+                    <div class="detail-group">
+                        <label>Baños:</label>
+                        <span>${property.bathrooms || 'N/A'}</span>
+                    </div>
+                    <div class="detail-group">
+                        <label>Estado:</label>
+                        <span class="status-badge status-${property.status?.toLowerCase() || 'available'}">${property.status || 'Disponible'}</span>
+                    </div>
+                    <div class="detail-group full-width">
+                        <label>Descripción:</label>
+                        <p>${property.description || 'Sin descripción'}</p>
+                    </div>
+                </div>
+                <div class="view-actions">
+                    <button type="button" class="btn-close-view">Cerrar</button>
+                </div>
+            </div>
+        `;
+
+        // Add event listeners
+        const closeBtn = modal.querySelector('.close');
+        const closeBtnFooter = modal.querySelector('.btn-close-view');
+
+        const closeModal = () => {
+            document.body.removeChild(modal);
+        };
+
+        closeBtn.addEventListener('click', closeModal);
+        closeBtnFooter.addEventListener('click', closeModal);
+
+        // Close on background click
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Add to page and show
+        document.body.appendChild(modal);
+        modal.style.display = 'block';
     }
 }
 
