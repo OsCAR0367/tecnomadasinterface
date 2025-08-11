@@ -1,0 +1,27 @@
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="#f8f9fa"/>
+  <rect x="50" y="50" width="300" height="200" fill="#dc2626" rx="8"/>
+  <rect x="60" y="100" width="30" height="30" fill="white" rx="4"/>
+  <rect x="100" y="100" width="30" height="30" fill="white" rx="4"/>
+  <rect x="140" y="100" width="30" height="30" fill="white" rx="4"/>
+  <rect x="180" y="100" width="30" height="30" fill="white" rx="4"/>
+  <rect x="220" y="100" width="30" height="30" fill="white" rx="4"/>
+  <rect x="260" y="100" width="30" height="30" fill="white" rx="4"/>
+  <rect x="300" y="100" width="30" height="30" fill="white" rx="4"/>
+  <rect x="60" y="140" width="30" height="30" fill="white" rx="4"/>
+  <rect x="100" y="140" width="30" height="30" fill="white" rx="4"/>
+  <rect x="140" y="140" width="30" height="30" fill="white" rx="4"/>
+  <rect x="180" y="140" width="30" height="30" fill="white" rx="4"/>
+  <rect x="220" y="140" width="30" height="30" fill="white" rx="4"/>
+  <rect x="260" y="140" width="30" height="30" fill="white" rx="4"/>
+  <rect x="300" y="140" width="30" height="30" fill="white" rx="4"/>
+  <rect x="60" y="180" width="30" height="30" fill="white" rx="4"/>
+  <rect x="100" y="180" width="30" height="30" fill="white" rx="4"/>
+  <rect x="140" y="180" width="30" height="30" fill="white" rx="4"/>
+  <rect x="180" y="180" width="30" height="30" fill="white" rx="4"/>
+  <rect x="220" y="180" width="30" height="30" fill="white" rx="4"/>
+  <rect x="260" y="180" width="30" height="30" fill="white" rx="4"/>
+  <rect x="300" y="180" width="30" height="30" fill="white" rx="4"/>
+  <rect x="50" y="220" width="300" height="30" fill="#b91c1c" rx="4"/>
+  <text x="200" y="275" text-anchor="middle" fill="#333" font-family="Arial, sans-serif" font-size="16" font-weight="bold">Propiedad El Pueblo</text>
+</svg>

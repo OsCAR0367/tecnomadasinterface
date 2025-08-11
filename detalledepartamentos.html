@@ -3,214 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casa Moderna en Challapampa - Portal Inmobiliario El Pueblo</title>
+    <title>Detalle de Propiedad - Portal Inmobiliario Tecnómadas</title>
+    <link rel="stylesheet" href="./public/css/main.css">
+    <link rel="stylesheet" href="./public/css/components.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #f8f9fa;
-            color: #333;
-            line-height: 1.6;
-        }
-
-        .header {
-            background: white;
-            padding: 16px 0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .header-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            align-items: center; 
-            gap: 16px;
-        }
-
-        .back-btn {
-            background: #dc2626;
-            color: white;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 6px;
-            font-size: 14px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: background 0.2s;
-        }
-
-        .back-btn:hover {
-            background: #b91c1c;
-        }
-
+        /* Estilos específicos para la página de detalles */
         .breadcrumb {
-            color: #666;
+            background: #f8f9fa;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin: 20px 0;
             font-size: 14px;
         }
 
         .breadcrumb a {
-            color: #dc2626;
+            color: var(--primary-color);
             text-decoration: none;
+            margin-right: 8px;
         }
 
-        .container {
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb span {
+            color: #666;
+            margin: 0 8px;
+        }
+
+        .property-detail-container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .property-main-content {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            min-width: 0;
         }
 
         .property-header {
-            background: white;
-            border-radius: 12px;
-            padding: 24px;
             margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         .property-title {
             font-size: 28px;
             font-weight: 700;
-            margin-bottom: 8px;
-            color: #333;
+            color: var(--text-primary);
+            margin: 0 0 10px 0;
         }
 
         .property-location {
-            color: #666;
+            color: var(--text-secondary);
             font-size: 16px;
-            margin-bottom: 16px;
             display: flex;
             align-items: center;
             gap: 8px;
+            margin-bottom: 20px;
         }
 
         .property-price {
             font-size: 32px;
             font-weight: 700;
-            color: #dc2626;
-            margin-bottom: 4px;
+            color: var(--primary-color);
+            margin-bottom: 5px;
         }
 
         .property-price-usd {
-            font-size: 18px;
-            color: #666;
+            font-size: 16px;
+            color: var(--text-secondary);
             margin-bottom: 20px;
         }
 
         .property-actions {
             display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
         }
 
-        .action-btn {
-            padding: 14px 24px;
+        .btn-primary, .btn-whatsapp {
+            padding: 12px 24px;
             border: none;
             border-radius: 8px;
-            font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
             align-items: center;
             gap: 8px;
         }
 
-        .primary-btn {
-            background: #dc2626;
+        .btn-primary {
+            background: var(--primary-color);
             color: white;
         }
 
-        .primary-btn:hover {
-            background: #b91c1c;
+        .btn-primary:hover {
+            background: #dc2626;
         }
 
-        .secondary-btn {
+        .btn-whatsapp {
             background: #25d366;
             color: white;
         }
 
-        .secondary-btn:hover {
-            background: #22c55e;
+        .btn-whatsapp:hover {
+            background: #20b858;
         }
 
-        .outline-btn {
-            background: white;
-            color: #dc2626;
-            border: 2px solid #dc2626;
-        }
-
-        .outline-btn:hover {
-            background: #dc2626;
-            color: white;
-        }
-
-        .favorite-btn {
-            background: white;
-            color: #666;
-            border: 2px solid #e9ecef;
-            min-width: 50px;
-            justify-content: center;
-        }
-
-        .favorite-btn:hover {
-            border-color: #dc2626;
-            color: #dc2626;
-        }
-
-        .main-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 20px;
-        }
-
-        .left-column {
+        .property-gallery {
+            margin-bottom: 30px;
+            width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 20px;
-        }
-
-        .image-gallery {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         .main-image {
             width: 100%;
-            height: 400px;
+            height: 320px;
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 12px;
+            margin-bottom: 15px;
             position: relative;
+            overflow: hidden;
+            min-height: 320px;
+            max-height: 320px;
         }
 
         .image-counter {
             position: absolute;
-            bottom: 16px;
-            right: 16px;
-            background: rgba(0,0,0,0.7);
+            bottom: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.7);
             color: white;
-            padding: 8px 12px;
+            padding: 6px 12px;
             border-radius: 20px;
             font-size: 14px;
         }
 
-        .image-thumbnails {
+        .thumbnail-gallery {
             display: flex;
-            gap: 8px;
-            padding: 16px;
+            gap: 10px;
             overflow-x: auto;
+            padding: 5px 0;
         }
 
         .thumbnail {
@@ -218,642 +162,945 @@
             height: 60px;
             background-size: cover;
             background-position: center;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
             flex-shrink: 0;
             border: 2px solid transparent;
-            transition: border-color 0.2s;
+            transition: var(--transition);
         }
 
         .thumbnail:hover, .thumbnail.active {
-            border-color: #dc2626;
+            border-color: var(--primary-color);
         }
 
-        .property-details {
-            background: white;
+        .property-features {
+            background: var(--card-background);
+            padding: 25px;
             border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
         }
 
-        .details-title {
+        .features-title {
             font-size: 20px;
             font-weight: 600;
             margin-bottom: 20px;
-            color: #333;
+            color: var(--text-primary);
         }
 
-        .details-grid {
+        .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 16px;
-            margin-bottom: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 20px;
         }
 
-        .detail-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px;
-            background: #f8f9fa;
+        .feature-item {
+            text-align: center;
+            padding: 15px;
+            background: var(--background-color);
             border-radius: 8px;
         }
 
-        .detail-icon {
-            font-size: 20px;
-            color: #dc2626;
+        .feature-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
         }
 
-        .detail-text {
-            font-size: 14px;
-            color: #666;
-        }
-
-        .detail-value {
+        .feature-value {
+            font-size: 18px;
             font-weight: 600;
-            color: #333;
+            color: var(--text-primary);
+            margin-bottom: 4px;
         }
 
-        .description {
-            background: white;
+        .feature-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        .property-description {
+            background: var(--card-background);
+            padding: 25px;
             border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .description-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-primary);
         }
 
         .description-text {
-            color: #666;
-            line-height: 1.7;
-            margin-bottom: 16px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        .additional-features {
+            background: var(--card-background);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .additional-features-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-primary);
         }
 
         .features-list {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 8px;
+            gap: 10px;
         }
 
-        .feature-item {
+        .feature-list-item {
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 14px;
-            color: #666;
+            color: var(--text-secondary);
         }
 
-        .feature-check {
-            color: #dc2626;
+        .feature-list-item::before {
+            content: "✓";
+            color: var(--primary-color);
             font-weight: 600;
         }
 
-        .right-column {
+        .property-map {
+            background: var(--card-background);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .map-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .map-placeholder {
+            width: 100%;
+            min-height: 200px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .inquiry-section {
+            background: var(--card-background);
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .inquiry-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .inquiry-form {
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
 
-        .contact-card {
-            background: white;
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 100px;
+        .inquiry-description {
+            color: var(--text-secondary);
+            margin-bottom: 10px;
         }
 
-        .agent-info {
+        .faq-items {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .faq-item-checkbox {
             display: flex;
             align-items: center;
-            gap: 16px;
-            margin-bottom: 20px;
+            padding: 15px;
+            background: var(--background-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
         }
 
-        .agent-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: #dc2626;
+        .faq-item-checkbox:hover {
+            background: #f1f5f9;
+            transform: translateY(-1px);
+        }
+
+        .faq-item-checkbox input[type="checkbox"] {
+            display: none;
+        }
+
+        .checkmark {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            margin-right: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: var(--transition);
+        }
+
+        .faq-item-checkbox input[type="checkbox"]:checked + .checkmark {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .faq-item-checkbox input[type="checkbox"]:checked + .checkmark::after {
+            content: "✓";
             color: white;
-            font-size: 24px;
-            font-weight: 600;
-        }
-
-        .agent-details h3 {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .agent-role {
-            color: #666;
+            font-weight: bold;
             font-size: 14px;
         }
 
-        .contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
+        .faq-question {
+            font-weight: 500;
+            color: var(--text-primary);
+            flex: 1;
         }
 
-        .form-group {
+        .custom-question {
             display: flex;
             flex-direction: column;
             gap: 8px;
         }
 
-        .form-label {
-            font-size: 14px;
+        .custom-question label {
             font-weight: 500;
-            color: #333;
+            color: var(--text-primary);
         }
 
-        .form-input {
+        .custom-question textarea {
+            width: 100%;
             padding: 12px;
-            border: 2px solid #e9ecef;
-            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
             font-size: 14px;
-            transition: border-color 0.2s;
+            font-family: inherit;
+            resize: vertical;
+            transition: var(--transition);
+            box-sizing: border-box;
         }
 
-        .form-input:focus {
+        .custom-question textarea:focus {
             outline: none;
-            border-color: #dc2626;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
         }
 
-        .form-textarea {
-            min-height: 100px;
+        .inquiry-submit-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            align-self: flex-start;
+        }
+
+        .inquiry-submit-btn:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+        }
+
+        .inquiry-submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .property-sidebar {
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+            width: 100%;
+            min-width: 0;
+        }
+
+        .contact-form {
+            background: var(--card-background);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: none;
+        }
+
+        .contact-form h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: var(--transition);
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+        }
+
+        .form-group textarea {
+            height: 100px;
             resize: vertical;
         }
 
-        .mortgage-calculator {
-            background: white;
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .calculator-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            color: #333;
-        }
-
-        .calculator-result {
-            background: #f8f9fa;
-            padding: 16px;
-            border-radius: 8px;
-            text-align: center;
-            margin-top: 16px;
-        }
-
-        .monthly-payment {
-            font-size: 24px;
-            font-weight: 700;
-            color: #dc2626;
-        }
-
-        .similar-properties {
-            background: white;
-            border-radius: 12px;
-            padding: 24px;
-            margin-top: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .similar-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 16px;
-            margin-top: 16px;
-        }
-
-        .similar-card {
-            background: #f8f9fa;
-            border-radius: 8px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .similar-card:hover {
-            transform: translateY(-2px);
-        }
-
-        .similar-image {
+        .submit-btn {
             width: 100%;
-            height: 120px;
-            background-size: cover;
-            background-position: center;
-        }
-
-        .similar-info {
-            padding: 16px;
-        }
-
-        .similar-title {
-            font-size: 14px;
+            padding: 15px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
             font-weight: 600;
-            margin-bottom: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
         }
 
-        .similar-price {
-            color: #dc2626;
-            font-weight: 600;
+        .submit-btn:hover {
+            background: #dc2626;
         }
 
         @media (max-width: 768px) {
-            .container {
-                padding: 16px;
-            }
-
-            .main-content {
+            .property-detail-container {
                 grid-template-columns: 1fr;
-            }
-
-            .property-title {
-                font-size: 24px;
-            }
-
-            .property-price {
-                font-size: 28px;
+                gap: 20px;
             }
 
             .property-actions {
                 flex-direction: column;
             }
 
-            .action-btn {
-                justify-content: center;
-            }
-
-            .details-grid {
-                grid-template-columns: 1fr;
-            }
-
             .main-image {
                 height: 250px;
-            }
-
-            .contact-card {
-                position: static;
             }
         }
     </style>
 </head>
 <body>
-    <header class="header">
+    <!-- Header Principal -->
+    <header class="main-header">
         <div class="header-content">
-            <button class="back-btn" onclick="history.back()">
-                ← Volver
-            </button>
-            <div class="breadcrumb">
-                <a href="#">Inicio</a> / <a href="#">Cerro Colorado</a> / Casa Moderna en Challapampa
+            <div class="logo">
+                <div class="logo-icon">🏠️</div>
+                <span>Tecnómadas</span>
             </div>
+            
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="public/index.html">INICIO</a></li>
+                    <li><a href="public/catalogo.html">CATÁLOGO</a></li>
+                    <li><a href="#vender">VENDE O ALQUILA</a></li>
+                    <li><a href="#encuentranos">ENCUÉNTRANOS</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
-    <div class="container">
-        <div class="property-header">
-            <h1 class="property-title">Casa Moderna en Challapampa</h1>
-            <div class="property-location">
-                📍 La Planicie De Challapampa, Cerro Colorado, Arequipa
-            </div>
-            <div class="property-price">S/ 320,000</div>
-            <div class="property-price-usd">USD 85,000</div>
-            
-            <div class="property-actions">
-                <button class="action-btn primary-btn">
-                    📞 Contactar Ahora
-                </button>
-                <button class="action-btn secondary-btn">
-                    📱 WhatsApp
-                </button>
-                
-            </div>
-        </div>
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="public/index.html">Inicio</a>
+        <span>/</span>
+        <a href="public/catalogo.html">Catálogo</a>
+        <span>/</span>
+        <span id="propertyBreadcrumb">Cargando...</span>
+    </div>
 
-        <div class="main-content">
-            <div class="left-column">
-                <div class="image-gallery">
-                    <div class="main-image" style="background-image: url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=400&fit=crop');">
-                        <div class="image-counter">1 / 15</div>
-                    </div>
-                    <div class="image-thumbnails">
-                        <div class="thumbnail active" style="background-image: url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=80&h=60&fit=crop');"></div>
-                        <div class="thumbnail" style="background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=80&h=60&fit=crop');"></div>
-                        <div class="thumbnail" style="background-image: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=80&h=60&fit=crop');"></div>
-                        <div class="thumbnail" style="background-image: url('https://images.unsplash.com/photo-1484154218962-a197022b5858?w=80&h=60&fit=crop');"></div>
-                        <div class="thumbnail" style="background-image: url('https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=80&h=60&fit=crop');"></div>
-                        <div class="thumbnail" style="background-image: url('https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=80&h=60&fit=crop');"></div>
-                    </div>
-                </div>
-
-                <div class="property-details">
-                    <h2 class="details-title">Características de la Propiedad</h2>
-                    <div class="details-grid">
-                        <div class="detail-item">
-                            <div class="detail-icon">🏠</div>
-                            <div>
-                                <div class="detail-text">Área Total</div>
-                                <div class="detail-value">415 m²</div>
-                            </div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="detail-icon">🛏</div>
-                            <div>
-                                <div class="detail-text">Dormitorios</div>
-                                <div class="detail-value">3</div>
-                            </div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="detail-icon">🚿</div>
-                            <div>
-                                <div class="detail-text">Baños</div>
-                                <div class="detail-value">2.5</div>
-                            </div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="detail-icon">🚗</div>
-                            <div>
-                                <div class="detail-text">Estacionamientos</div>
-                                <div class="detail-value">2</div>
-                            </div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="detail-icon">📅</div>
-                            <div>
-                                <div class="detail-text">Año Construcción</div>
-                                <div class="detail-value">2020</div>
-                            </div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="detail-icon">🏗</div>
-                            <div>
-                                <div class="detail-text">Pisos</div>
-                                <div class="detail-value">2</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="description">
-                    <h2 class="details-title">Descripción</h2>
-                    <p class="description-text">
-                        <strong>¡Gran Oportunidad de Inversión en Arequipa!</strong>
-                    </p>
-                    <p class="description-text">
-                        Ubicación privilegiada: Terreno ubicado estratégicamente al costado de Pardo entre el Mall Parque Lambramani y el Aventura Mall, una de las zonas comerciales con mayor crecimiento y desarrollo de la ciudad.
-                    </p>
-                    <p class="description-text">
-                        Ideal para desarrollos comerciales, residenciales o mixtos. La zona cuenta con todos los servicios básicos y excelente conectividad vial.
-                    </p>
-                    
-                    <h3 style="margin: 20px 0 16px 0; color: #333;">Características Adicionales:</h3>
-                    <div class="features-list">
-                        <div class="feature-item">
-                            <span class="feature-check">✓</span>
-                            Seguridad
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-check">✓</span>
-                            Centros Comerciales Cercanos
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-check">✓</span>
-                            Cerca a colegios
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-check">✓</span>
-                            M²Jupl. de frente: 65
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-check">✓</span>
-                            M²Jupl. de fondo: 85
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-check">✓</span>
-                            Acceso asfaltado
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-check">✓</span>
-                            Cerca a Parque a menos de 2
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-check">✓</span>
-                            Vista Parque
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-check">✓</span>
-                            Frente a Parque
-                        </div>
-                    </div>
-                </div>
-
-                <div class="map-section" style="background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-top: 20px;">
-                    <h2 class="details-title">Ubicación</h2>
-                    <div class="map-container" style="width: 100%; height: 300px; background: #f0f0f0; border-radius: 8px; position: relative; overflow: hidden;">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3827.1234567890123!2d-71.5369847!3d-16.4043847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTbCsDI0JzE1LjgiUyA3McKwMzInMTMuMSJX!5e0!3m2!1ses!2spe!4v1640995200000!5m2!1ses!2spe" 
-                                width="100%" height="300" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy">
-                        </iframe>
-                        <div style="position: absolute; bottom: 16px; left: 16px; background: rgba(220, 38, 38, 0.9); color: white; padding: 8px 12px; border-radius: 20px; font-size: 14px;">
-                            📍 Av. Lambramani, José Luis Bustamante Y Rivero, Arequipa
-                        </div>
-                    </div>
-                </div>
-
-                <div class="questions-section" style="background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-top: 20px;">
-                    <h2 class="details-title">Preguntas para la inmobiliaria</h2>
-                    <p style="color: #666; margin-bottom: 16px;">Selecciona una o más preguntas, o escríbela tu consulta</p>
-                    
-                    <div class="question-buttons" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px;">
-                        <button class="question-btn" style="background: white; border: 2px solid #e9ecef; padding: 8px 16px; border-radius: 20px; font-size: 14px; cursor: pointer; transition: all 0.2s;">¿Está disponible?</button>
-                        <button class="question-btn" style="background: white; border: 2px solid #e9ecef; padding: 8px 16px; border-radius: 20px; font-size: 14px; cursor: pointer; transition: all 0.2s;">¿Cuánto puedo visitarlo?</button>
-                        <button class="question-btn" style="background: white; border: 2px solid #e9ecef; padding: 8px 16px; border-radius: 20px; font-size: 14px; cursor: pointer; transition: all 0.2s;">¿En qué piso está?</button>
-                        <button class="question-btn" style="background: white; border: 2px solid #e9ecef; padding: 8px 16px; border-radius: 20px; font-size: 14px; cursor: pointer; transition: all 0.2s;">¿Tiene ascensor?</button>
-                    </div>
-                    
-                    <textarea placeholder="Escribe aquí" style="width: 100%; min-height: 80px; padding: 12px; border: 2px solid #e9ecef; border-radius: 6px; font-size: 14px; resize: vertical;"></textarea>
-                    
-                    <button style="background: #ff4444; color: white; border: none; padding: 12px 24px; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; margin-top: 12px;">Enviar →</button>
-                </div>
-
-                <div class="property-info-tabs" style="background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-top: 20px;">
-                    <h2 class="details-title">Conoce más sobre este inmueble</h2>
-                    
-                    <div class="tab-buttons" style="display: flex; gap: 16px; margin-bottom: 20px; border-bottom: 2px solid #f0f0f0;">
-                        <button class="tab-btn active" data-tab="general" style="background: none; border: none; padding: 12px 0; font-size: 16px; cursor: pointer; border-bottom: 2px solid #dc2626; color: #dc2626; font-weight: 600;">📋 Características generales</button>
-                        <button class="tab-btn" data-tab="services" style="background: none; border: none; padding: 12px 0; font-size: 16px; cursor: pointer; border-bottom: 2px solid transparent; color: #666;">⚙️ Servicios</button>
-                    </div>
-                    
-                    <div class="tab-content" id="general-tab">
-                        <div class="info-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
-                            <div>
-                                <strong>Seguridad</strong><br>
-                                <span style="color: #666;">Centros Comerciales Cercanos</span><br>
-                                <span style="color: #666;">Cerca a colegios</span><br>
-                                <span style="color: #666;">M²Jupl. de frente: 65</span><br>
-                                <span style="color: #666;">M²Jupl. de fondo: 85</span>
-                            </div>
-                            <div>
-                                <span style="color: #666;">Acceso asfaltado</span><br>
-                                <span style="color: #666;">Cerca a Parque a menos de 2</span><br>
-                                <span style="color: #666;">Vista Parque</span><br>
-                                <span style="color: #666;">Frente a Parque</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="tab-content" id="services-tab" style="display: none;">
-                        <div>
-                            <strong>Servicios básicos Agua/Luz</strong><br>
-                            <span style="color: #666;">Uso Profesional</span><br>
-                            <span style="color: #666;">Uso Comercial</span>
-                        </div>
-                    </div>
+    <!-- Contenido Principal -->
+    <div class="property-detail-container">
+        <!-- Contenido Principal -->
+        <div class="property-main-content">
+            <!-- Header de la Propiedad -->
+            <div class="property-header">
+                <h1 id="propertyTitle" class="property-title">Cargando propiedad...</h1>
+                <div id="propertyLocation" class="property-location">📍 Cargando ubicación...</div>
+                <div id="propertyPrice" class="property-price">S/ 0</div>
+                <div id="propertyPriceUSD" class="property-price-usd">USD 0</div>
+                <div class="property-actions">
+                    <button class="btn-primary" onclick="contactAgent()">Contactar Ahora</button>
+                    <a href="#" class="btn-whatsapp" onclick="contactWhatsApp()">📱 WhatsApp</a>
+                    <a href="public/catalogo.html" class="btn-secondary" style="background: #6b7280; color: white; text-decoration: none;">← Volver al Catálogo</a>
                 </div>
             </div>
 
-            <div class="right-column">
-                <div class="contact-card">
-                    <div class="agent-info">
-                        <div class="agent-avatar">JM</div>
-                        <div class="agent-details">
-                            <h3>Juan Martínez</h3>
-                            <div class="agent-role">Agente Inmobiliario Senior</div>
-                        </div>
+            <!-- Galería de Imágenes -->
+            <div class="property-gallery">
+                <div id="mainImage" class="main-image">
+                    <div class="image-counter">
+                        <span id="currentImageIndex">1</span> / <span id="totalImages">15</span>
                     </div>
-
-                    <form class="contact-form">
-                        <div class="form-group">
-                            <label class="form-label">Nombre Completo</label>
-                            <input type="text" class="form-input" placeholder="Tu nombre completo">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Teléfono</label>
-                            <input type="tel" class="form-input" placeholder="Tu número de teléfono">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Email</label>
-                            <input type="email" class="form-input" placeholder="tu@email.com">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Mensaje</label>
-                            <textarea class="form-input form-textarea" placeholder="Estoy interesado en esta propiedad..."></textarea>
-                        </div>
-                        <button type="submit" class="action-btn primary-btn" style="width: 100%; justify-content: center;">
-                            Enviar Consulta
-                        </button>
-                    </form>
                 </div>
+                <div id="thumbnailGallery" class="thumbnail-gallery">
+                    <!-- Las thumbnails se generarán dinámicamente -->
+                </div>
+            </div>
 
-                
+            <!-- Características Principales -->
+            <div class="property-features">
+                <h2 class="features-title">Características de la Propiedad</h2>
+                <div id="featuresGrid" class="features-grid">
+                    <!-- Las características se generarán dinámicamente -->
+                </div>
+            </div>
+
+            <!-- Descripción -->
+            <div class="property-description">
+                <h2 class="description-title">Descripción</h2>
+                <p id="propertyDescription" class="description-text">Cargando descripción...</p>
+            </div>
+
+            <!-- Características Adicionales -->
+            <div class="additional-features">
+                <h2 class="additional-features-title">Características Adicionales</h2>
+                <div id="additionalFeaturesList" class="features-list">
+                    <!-- Las características adicionales se generarán dinámicamente -->
+                </div>
+            </div>
+
+            <!-- Ubicación -->
+            <div class="property-map">
+                <h2 class="map-title">Ubicación</h2>
+                <div class="map-placeholder">
+                    <div style="font-size: 18px; margin-bottom: 10px;">📍 Ubicación en Perú</div>
+                    <div id="mapLocation" style="font-size: 16px; font-weight: 600;">Lima, Distrito de San Isidro, Perú</div>
+                    <div style="font-size: 14px; margin-top: 10px; opacity: 0.8;">Coordenadas: -12.1005° S, -77.0365° O</div>
+                </div>
+            </div>
+
+            <!-- Formulario de Consultas -->
+            <div class="inquiry-section">
+                <h2 class="inquiry-title">Preguntas para la inmobiliaria</h2>
+                <form id="inquiryForm" class="inquiry-form">
+                    <div class="inquiry-description">
+                        <p>Selecciona una o más preguntas o escribe tu consulta personalizada:</p>
+                    </div>
+                    
+                    <div class="faq-items">
+                        <label class="faq-item-checkbox">
+                            <input type="checkbox" name="questions" value="¿Está disponible?">
+                            <span class="checkmark"></span>
+                            <span class="faq-question">¿Está disponible?</span>
+                        </label>
+                        
+                        <label class="faq-item-checkbox">
+                            <input type="checkbox" name="questions" value="¿Cuándo puedo visitarla?">
+                            <span class="checkmark"></span>
+                            <span class="faq-question">¿Cuándo puedo visitarla?</span>
+                        </label>
+                        
+                        <label class="faq-item-checkbox">
+                            <input type="checkbox" name="questions" value="¿Es una casa sola?">
+                            <span class="checkmark"></span>
+                            <span class="faq-question">¿Es una casa sola?</span>
+                        </label>
+                        
+                        <label class="faq-item-checkbox">
+                            <input type="checkbox" name="questions" value="¿Tiene ascensor?">
+                            <span class="checkmark"></span>
+                            <span class="faq-question">¿Tiene ascensor?</span>
+                        </label>
+                        
+                        <label class="faq-item-checkbox">
+                            <input type="checkbox" name="questions" value="¿Incluye muebles?">
+                            <span class="checkmark"></span>
+                            <span class="faq-question">¿Incluye muebles?</span>
+                        </label>
+                        
+                        <label class="faq-item-checkbox">
+                            <input type="checkbox" name="questions" value="¿Acepta mascotas?">
+                            <span class="checkmark"></span>
+                            <span class="faq-question">¿Acepta mascotas?</span>
+                        </label>
+                    </div>
+                    
+                    <div class="custom-question">
+                        <label for="customInquiry">O escribe tu pregunta personalizada:</label>
+                        <textarea id="customInquiry" name="customInquiry" placeholder="Escribe aquí tu consulta específica..." rows="4"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="inquiry-submit-btn">Enviar Consulta</button>
+                </form>
             </div>
         </div>
 
-        <div class="similar-properties">
-            <h2 class="details-title">Propiedades Similares</h2>
-            <div class="similar-grid">
-                <div class="similar-card">
-                    <div class="similar-image" style="background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=300&h=120&fit=crop');"></div>
-                    <div class="similar-info">
-                        <div class="similar-title">Casa en Yanahuara</div>
-                        <div class="similar-price">S/ 280,000</div>
+        <!-- Sidebar -->
+        <div class="property-sidebar">
+            <div class="contact-form">
+                <h3>Nombre Completo</h3>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="fullNumber">Tu nombre completo</label>
+                        <input type="text" id="fullNumber" name="fullNumber" placeholder="Ej: Jose Perez">
                     </div>
-                </div>
-                <div class="similar-card">
-                    <div class="similar-image" style="background-image: url('https://images.unsplash.com/photo-1486304873000-235643847519?w=300&h=120&fit=crop');"></div>
-                    <div class="similar-info">
-                        <div class="similar-title">Casa Familiar Miraflores</div>
-                        <div class="similar-price">S/ 350,000</div>
+                    <div class="form-group">
+                        <label for="phone">Teléfono</label>
+                        <input type="text" id="phone" name="phone" placeholder="Tu teléfono">
                     </div>
-                </div>
-                <div class="similar-card">
-                    <div class="similar-image" style="background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=300&h=120&fit=crop');"></div>
-                    <div class="similar-info">
-                        <div class="similar-title">Casa Moderna Cayma</div>
-                        <div class="similar-price">S/ 295,000</div>
+                    <div class="form-group">
+                        <label for="phoneNumber">Tu número de teléfono</label>
+                        <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Ej: 987654321">
                     </div>
-                </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Tu email">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Mensaje</label>
+                        <textarea id="message" name="message" placeholder="Estoy interesado en esta propiedad..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Enviar Consulta</button>
+                </form>
             </div>
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Galería de imágenes
-            const mainImage = document.querySelector('.main-image');
-            const thumbnails = document.querySelectorAll('.thumbnail');
-            const imageCounter = document.querySelector('.image-counter');
+    <!-- Footer Principal -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section brand-section">
+                <h3>Tecnómadas</h3>
+                <p>Tu portal inmobiliario de confianza</p>
+                <div class="social-links">
+                    <a href="#" class="social-link">📘 Facebook</a>
+                    <a href="#" class="social-link">📷 Instagram</a>
+                    <a href="#" class="social-link">🐦 Twitter</a>
+                </div>
+            </div>
             
-            const images = [
-                'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=400&fit=crop',
-                'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=400&fit=crop',
-                'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=400&fit=crop',
-                'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800&h=400&fit=crop',
-                'https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800&h=400&fit=crop',
-                'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=400&fit=crop'
+            <div class="footer-section contact-section">
+                <h3>Contacto</h3>
+                <div class="contact-info">
+                    <p class="contact-item">📞 +51 999 888 777</p>
+                    <p class="contact-item">✉️ info@tecnomadas.com</p>
+                    <p class="contact-item">📍 Lima, Perú</p>
+                </div>
+            </div>
+            
+            <div class="footer-section schedule-section">
+                <h3>HORARIO DE ATENCIÓN</h3>
+                <div class="schedule-grid">
+                    <div class="schedule-item">
+                        <span class="day">Lunes</span>
+                        <span class="time">9am a 6pm</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="day">Martes</span>
+                        <span class="time">9am a 6pm</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="day">Miércoles</span>
+                        <span class="time">9am a 6pm</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="day">Jueves</span>
+                        <span class="time">9am a 6pm</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="day">Viernes</span>
+                        <span class="time">9am a 6pm</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="day">Sábado</span>
+                        <span class="time">9am a 6pm</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="day">Domingo</span>
+                        <span class="time">9am a 6pm</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-section legal-section">
+                <h3>Legal</h3>
+                <div class="legal-links">
+                    <p><a href="#" class="legal-link">Términos y Condiciones</a></p>
+                    <p><a href="#" class="legal-link">Política de Privacidad</a></p>
+                    <p><a href="#" class="legal-link">Aviso Legal</a></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p>&copy; 2025 Tecnómadas. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // Configuración de Supabase
+        const supabaseUrl = 'https://inzqnrrgvnoipprpiyuj.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImluenFucnJndm5vaXBwcnBpeXVqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ4ODA3NTYsImV4cCI6MjA3MDQ1Njc1Nn0.blVu8cAgJ1_a-0it1zEOdaBw4rFCga__pHpS7Hnt_4s';
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+        let currentProperty = null;
+        let currentImageIndex = 0;
+        let propertyImages = [];
+
+        // Ubicaciones aleatorias en Perú
+        const peruLocations = [
+            { district: "San Isidro", city: "Lima", coords: "-12.1005° S, -77.0365° O" },
+            { district: "Miraflores", city: "Lima", coords: "-12.1198° S, -77.0280° O" },
+            { district: "San Borja", city: "Lima", coords: "-12.1007° S, -76.9961° O" },
+            { district: "Surco", city: "Lima", coords: "-12.1484° S, -76.9947° O" },
+            { district: "La Molina", city: "Lima", coords: "-12.0865° S, -76.9581° O" },
+            { district: "Barranco", city: "Lima", coords: "-12.1406° S, -77.0214° O" },
+            { district: "San Miguel", city: "Lima", coords: "-12.0773° S, -77.0911° O" },
+            { district: "Pueblo Libre", city: "Lima", coords: "-12.0732° S, -77.0618° O" },
+            { district: "Jesús María", city: "Lima", coords: "-12.0732° S, -77.0492° O" },
+            { district: "Lince", city: "Lima", coords: "-12.0913° S, -77.0348° O" }
+        ];
+
+        function getRandomPeruLocation() {
+            return peruLocations[Math.floor(Math.random() * peruLocations.length)];
+        }
+
+        // Array de imágenes de ejemplo de Unsplash
+        const sampleImages = [
+            'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop&q=80',
+            'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&h=600&fit=crop&q=80',
+            'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&h=600&fit=crop&q=80',
+            'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop&q=80',
+            'https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=800&h=600&fit=crop&q=80',
+            'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop&q=80',
+            'https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=800&h=600&fit=crop&q=80',
+            'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&h=600&fit=crop&q=80',
+            'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=800&h=600&fit=crop&q=80',
+            'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop&q=80',
+            'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop&q=80',
+            'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=600&fit=crop&q=80',
+            'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&h=600&fit=crop&q=80',
+            'https://images.unsplash.com/photo-1494526585095-c41746248156?w=800&h=600&fit=crop&q=80',
+            'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop&q=80'
+        ];
+
+        // Cargar propiedad al inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPropertyDetails();
+        });
+
+        function getPropertyIdFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('id');
+        }
+
+        async function loadPropertyDetails() {
+            const propertyId = getPropertyIdFromURL();
+            
+            if (!propertyId) {
+                alert('No se especificó una propiedad');
+                window.location.href = 'public/catalogo.html';
+                return;
+            }
+
+            try {
+                console.log('🏠 Cargando detalles de la propiedad:', propertyId);
+
+                const { data: property, error } = await supabase
+                    .from('properties')
+                    .select('*')
+                    .eq('id', propertyId)
+                    .single();
+
+                if (error) {
+                    console.error('Error cargando propiedad:', error);
+                    alert('Error al cargar la propiedad');
+                    return;
+                }
+
+                currentProperty = property;
+                console.log('✅ Propiedad cargada:', property);
+
+                displayPropertyDetails(property);
+                setupImageGallery();
+                
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al cargar los detalles de la propiedad');
+            }
+        }
+
+        function displayPropertyDetails(property) {
+            // Actualizar breadcrumb
+            document.getElementById('propertyBreadcrumb').textContent = property.title;
+
+            // Título y ubicación
+            document.getElementById('propertyTitle').textContent = property.title;
+            document.getElementById('propertyLocation').innerHTML = `📍 ${property.location || property.district || 'Ubicación no disponible'}`;
+
+            // Precio
+            const formattedPrice = new Intl.NumberFormat('es-PE', {
+                style: 'currency',
+                currency: 'PEN',
+                minimumFractionDigits: 0
+            }).format(property.price);
+            
+            document.getElementById('propertyPrice').textContent = formattedPrice;
+            
+            // Precio en USD (aproximado)
+            const usdPrice = Math.round(property.price / 3.8);
+            document.getElementById('propertyPriceUSD').textContent = `USD ${usdPrice.toLocaleString()}`;
+
+            // Descripción
+            document.getElementById('propertyDescription').textContent = property.description || 'Descripción no disponible';
+
+            // Ubicación del mapa - usar ubicación aleatoria de Perú
+            const randomLocation = getRandomPeruLocation();
+            const mapLocationElement = document.getElementById('mapLocation');
+            if (mapLocationElement) {
+                mapLocationElement.innerHTML = `${randomLocation.district}, ${randomLocation.city}, Perú`;
+                // Actualizar también las coordenadas
+                const coordsElement = mapLocationElement.parentElement.querySelector('div:last-child');
+                if (coordsElement) {
+                    coordsElement.textContent = `Coordenadas: ${randomLocation.coords}`;
+                }
+            }
+
+            // Características principales
+            displayFeatures(property);
+            displayAdditionalFeatures(property);
+        }
+
+        function displayFeatures(property) {
+            const featuresGrid = document.getElementById('featuresGrid');
+            
+            const features = [
+                {
+                    icon: '🏠',
+                    value: property.area || 'N/A',
+                    label: 'Área Total',
+                    unit: 'm²'
+                },
+                {
+                    icon: '🛏️',
+                    value: property.bedrooms || 'N/A',
+                    label: 'Dormitorios'
+                },
+                {
+                    icon: '🚿',
+                    value: property.bathrooms || 'N/A',
+                    label: 'Baños'
+                },
+                {
+                    icon: '🚗',
+                    value: property.parking || 'N/A',
+                    label: 'Estacionamientos'
+                },
+                {
+                    icon: '🏢',
+                    value: property.floor || 'N/A',
+                    label: 'Piso'
+                },
+                {
+                    icon: '📅',
+                    value: property.year_built || 'N/A',
+                    label: 'Año Construcción'
+                }
             ];
 
-            thumbnails.forEach((thumb, index) => {
-                thumb.addEventListener('click', () => {
-                    // Remover clase active de todos los thumbnails
-                    thumbnails.forEach(t => t.classList.remove('active'));
-                    // Agregar clase active al thumbnail clickeado
-                    thumb.classList.add('active');
-                    // Cambiar imagen principal
-                    mainImage.style.backgroundImage = `url('${images[index]}')`;
-                    // Actualizar contador
-                    imageCounter.textContent = `${index + 1} / 15`;
+            featuresGrid.innerHTML = features.map(feature => `
+                <div class="feature-item">
+                    <div class="feature-icon">${feature.icon}</div>
+                    <div class="feature-value">${feature.value}${feature.unit || ''}</div>
+                    <div class="feature-label">${feature.label}</div>
+                </div>
+            `).join('');
+        }
+
+        function displayAdditionalFeatures(property) {
+            const additionalFeaturesList = document.getElementById('additionalFeaturesList');
+            
+            const additionalFeatures = [
+                'Aire acondicionado',
+                'Calefacción',
+                'Cocina equipada',
+                'Terraza',
+                'Jardín',
+                'Piscina',
+                'Gimnasio',
+                'Área de juegos',
+                'Seguridad 24/7',
+                'Ascensor',
+                'Balcón',
+                'Vista al mar'
+            ];
+
+            // Seleccionar 6-8 características aleatorias
+            const randomFeatures = additionalFeatures
+                .sort(() => 0.5 - Math.random())
+                .slice(0, Math.floor(Math.random() * 3) + 6);
+
+            additionalFeaturesList.innerHTML = randomFeatures.map(feature => `
+                <div class="feature-list-item">${feature}</div>
+            `).join('');
+        }
+
+        function setupImageGallery() {
+            propertyImages = [...sampleImages].sort(() => 0.5 - Math.random()).slice(0, 15);
+            
+            const mainImage = document.getElementById('mainImage');
+            const thumbnailGallery = document.getElementById('thumbnailGallery');
+            const totalImagesSpan = document.getElementById('totalImages');
+            
+            // Establecer un fondo temporal para evitar saltos de layout
+            mainImage.style.backgroundColor = '#f0f0f0';
+            
+            // Configurar imagen principal
+            mainImage.style.backgroundImage = `url(${propertyImages[0]})`;
+            totalImagesSpan.textContent = propertyImages.length;
+            
+            // Configurar thumbnails
+            thumbnailGallery.innerHTML = propertyImages.map((image, index) => `
+                <div class="thumbnail ${index === 0 ? 'active' : ''}" 
+                     style="background-image: url(${image})"
+                     onclick="changeImage(${index})"></div>
+            `).join('');
+            
+            updateImageCounter();
+        }
+
+        function changeImage(index) {
+            currentImageIndex = index;
+            const mainImage = document.getElementById('mainImage');
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            
+            // Actualizar imagen principal
+            mainImage.style.backgroundImage = `url(${propertyImages[index]})`;
+            
+            // Actualizar thumbnails activos
+            thumbnails.forEach((thumb, i) => {
+                thumb.classList.toggle('active', i === index);
+            });
+            
+            updateImageCounter();
+        }
+
+        function updateImageCounter() {
+            document.getElementById('currentImageIndex').textContent = currentImageIndex + 1;
+        }
+
+        function contactAgent() {
+            alert('Funcionalidad de contacto - se implementará más adelante');
+        }
+
+        function contactWhatsApp() {
+            const message = `Hola, estoy interesado en la propiedad: ${currentProperty?.title || 'Propiedad'}`;
+            const whatsappUrl = `https://wa.me/51999888777?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Manejo del formulario de contacto
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+            
+            console.log('Datos del formulario:', data);
+            alert('Formulario enviado. Te contactaremos pronto.');
+        });
+
+        // Manejo del formulario de consultas
+        document.getElementById('inquiryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const selectedQuestions = formData.getAll('questions');
+            const customInquiry = formData.get('customInquiry');
+            
+            // Validar que al menos haya una pregunta seleccionada o una consulta personalizada
+            if (selectedQuestions.length === 0 && !customInquiry.trim()) {
+                alert('Por favor, selecciona al menos una pregunta o escribe una consulta personalizada.');
+                return;
+            }
+            
+            // Preparar el mensaje de consulta
+            let inquiryMessage = '';
+            
+            if (selectedQuestions.length > 0) {
+                inquiryMessage += 'Preguntas seleccionadas:\n';
+                selectedQuestions.forEach((question, index) => {
+                    inquiryMessage += `${index + 1}. ${question}\n`;
                 });
+            }
+            
+            if (customInquiry.trim()) {
+                if (inquiryMessage) inquiryMessage += '\n';
+                inquiryMessage += 'Consulta personalizada:\n' + customInquiry.trim();
+            }
+            
+            // Agregar información de la propiedad
+            const propertyInfo = `\n\nPropiedad consultada: ${currentProperty?.title || 'Propiedad'}\nID: ${currentProperty?.id || 'N/A'}`;
+            inquiryMessage += propertyInfo;
+            
+            console.log('Consulta enviada:', {
+                selectedQuestions,
+                customInquiry,
+                property: currentProperty?.title,
+                fullMessage: inquiryMessage
             });
-
-            // Botón de favoritos
-            const favoriteBtn = document.querySelector('.favorite-btn');
-            favoriteBtn.addEventListener('click', function() {
-                this.textContent = this.textContent === '♡' ? '♥' : '♡';
-                this.style.color = this.textContent === '♥' ? '#dc2626' : '#666';
-            });
-
-            // Botones de acción
-            document.querySelectorAll('.primary-btn, .secondary-btn').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    if (this.textContent.includes('WhatsApp')) {
-                        alert('Abriendo WhatsApp para contactar sobre esta propiedad...');
-                    } else if (this.textContent.includes('Contactar')) {
-                        alert('Iniciando llamada telefónica...');
-                    } else if (this.textContent.includes('Consulta')) {
-                        alert('Abriendo formulario de consulta...');
-                    }
-                });
-            });
-
-            // Formulario de contacto
-            document.querySelector('.contact-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('¡Gracias por tu consulta! Te contactaremos pronto.');
-            });
-
-            // Calculadora de crédito
-            const priceInputs = document.querySelectorAll('.mortgage-calculator .form-input');
-            priceInputs.forEach(input => {
-                input.addEventListener('change', function() {
-                    // Simulación de cálculo
-                    const monthlyPayment = Math.floor(Math.random() * 1000) + 1500;
-                    document.querySelector('.monthly-payment').textContent = `S/ ${monthlyPayment.toLocaleString()}`;
-                });
-            });
-
-            // Propiedades similares
-            document.querySelectorAll('.similar-card').forEach(card => {
-                card.addEventListener('click', function() {
-                    const title = this.querySelector('.similar-title').textContent;
-                    alert(`Ver detalles de: ${title}`);
-                });
-            });
+            
+            // Simular envío exitoso
+            alert('¡Consulta enviada exitosamente! Te responderemos pronto.');
+            
+            // Limpiar formulario
+            e.target.reset();
+            
+            // Opcional: Abrir WhatsApp con la consulta
+            const whatsappMessage = `Hola, tengo una consulta sobre la propiedad:\n\n${inquiryMessage}`;
+            const whatsappUrl = `https://wa.me/51999888777?text=${encodeURIComponent(whatsappMessage)}`;
+            
+            // Preguntar si quiere enviar por WhatsApp también
+            if (confirm('¿También quieres enviar esta consulta por WhatsApp?')) {
+                window.open(whatsappUrl, '_blank');
+            }
         });
     </script>
 </body>

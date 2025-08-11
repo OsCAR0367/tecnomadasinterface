@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - Portal Inmobiliario Tecnómadas</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+    <!-- Header Principal -->
+    <header class="main-header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">🏠️</div>
+                <span>Tecnómadas</span>
+            </div>
+            
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="/">INICIO</a></li>
+                    <li><a href="/catalogo" class="active">CATÁLOGO</a></li>
+                    <li><a href="#vender">VENDE O ALQUILA</a></li>
+                    <li><a href="#encuentranos">ENCUÉNTRANOS</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <p>Cargando propiedades...</p>
+    </div>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="filter-section">
+                <h3 class="filter-title">Precio</h3>
+                <div class="filter-group">
+                    <label class="filter-label">Mínimo</label>
+                    <input type="number" id="minPrice" class="price-input" placeholder="S/ 50,000">
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Máximo</label>
+                    <input type="number" id="maxPrice" class="price-input" placeholder="S/ 600,000">
+                </div>
+            </div>
+            
+            <div class="filter-section">
+                <h3 class="filter-title">Tipo de Propiedad</h3>
+                <select id="propertyTypeFilter" class="filter-select">
+                    <option value="">Todos los tipos</option>
+                    <option value="departamento">Departamento</option>
+                    <option value="casa">Casa</option>
+                    <option value="terreno">Terreno</option>
+                </select>
+            </div>
+            
+            <div class="filter-section">
+                <h3 class="filter-title">Distrito</h3>
+                <select id="districtFilter" class="filter-select">
+                    <option value="">Todos los distritos</option>
+                    <option value="la-molina">La Molina</option>
+                    <option value="ate">Ate</option>
+                    <option value="santa-anita">Santa Anita</option>
+                    <option value="el-agustino">El Agustino</option>
+                    <option value="san-juan-de-lurigancho">San Juan de Lurigancho</option>
+                    <option value="chaclacayo">Chaclacayo</option>
+                    <option value="lurigancho-chosica">Lurigancho-Chosica</option>
+                    <option value="cieneguilla">Cieneguilla</option>
+                    <option value="pachacamac">Pachacamac</option>
+                    <option value="villa-maria-del-triunfo">Villa María del Triunfo</option>
+                </select>
+            </div>
+            
+            <div class="filter-section">
+                <h3 class="filter-title">Dormitorios</h3>
+                <select id="bedroomsFilter" class="filter-select">
+                    <option value="">Cualquier cantidad</option>
+                    <option value="1">1 dormitorio</option>
+                    <option value="2">2 dormitorios</option>
+                    <option value="3">3 dormitorios</option>
+                    <option value="4">4 dormitorios</option>
+                    <option value="5">5+ dormitorios</option>
+                </select>
+            </div>
+            
+            <div class="filter-section">
+                <h3 class="filter-title">Área</h3>
+                <div class="filter-group">
+                    <label class="filter-label">Área mínima (m²)</label>
+                    <input type="number" id="minArea" class="area-input" placeholder="50">
+                </div>
+            </div>
+            
+            <div class="filter-actions">
+                <button class="apply-filter-btn" id="applyFilterBtn">Filtrar Propiedades</button>
+                <button class="clear-filter-btn" id="clearFilterBtn">Limpiar Filtros</button>
+            </div>
+        </aside>
+        
+        <main class="main-content">
+            <div class="content-header">
+                <h1>Catálogo de Propiedades</h1>
+                <div class="view-controls">
+                    <button class="view-btn active" data-view="grid">
+                        <span class="grid-icon">⚏</span>
+                    </button>
+                    <button class="view-btn" data-view="list">
+                        <span class="list-icon">☰</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="properties-grid" id="propertiesContainer">
+                <!-- Las propiedades se cargarán dinámicamente aquí -->
+            </div>
+            
+            <div class="pagination" id="pagination">
+                <!-- Paginación se generará dinámicamente -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal para detalles de propiedad -->
+    <div class="modal-overlay" id="propertyModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalCloseBtn">×</button>
+            <div class="modal-body" id="modalBody">
+                <!-- Contenido del modal se carga dinámicamente -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Principal -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section brand-section">
+                <h3>Tecnómadas</h3>
+                <p>Tu portal inmobiliario de confianza</p>
+                <div class="social-links">
+                    <a href="#" class="social-link">📘 Facebook</a>
+                    <a href="#" class="social-link">📷 Instagram</a>
+                    <a href="#" class="social-link">🐦 Twitter</a>
+                </div>
+            </div>
+            
+            <div class="footer-section contact-section">
+                <h3>Contacto</h3>
+                <div class="contact-info">
+                    <p class="contact-item">📞 +51 999 888 777</p>
+                    <p class="contact-item">✉️ info@tecnomadas.com</p>
+                    <p class="contact-item">📍 Lima, Perú</p>
+                </div>
+            </div>
+            
+            <div class="footer-section schedule-section">
+                <h3>HORARIO DE ATENCIÓN</h3>
+                <div class="schedule-grid">
+                    <div class="schedule-item">
+                        <span class="day">Lunes</span>
+                        <span class="time">9am a 6pm</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="day">Martes</span>
+                        <span class="time">9am a 6pm</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="day">Miércoles</span>
+                        <span class="time">9am a 6pm</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="day">Jueves</span>
+                        <span class="time">9am a 6pm</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="day">Viernes</span>
+                        <span class="time">9am a 6pm</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="day">Sábado</span>
+                        <span class="time">9am a 6pm</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="day">Domingo</span>
+                        <span class="time">9am a 6pm</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-section legal-section">
+                <h3>Legal</h3>
+                <div class="legal-links">
+                    <p><a href="#" class="legal-link">Términos y Condiciones</a></p>
+                    <p><a href="#" class="legal-link">Política de Privacidad</a></p>
+                    <p><a href="#" class="legal-link">Aviso Legal</a></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p>&copy; 2025 Tecnómadas. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // Configuración de Supabase
+        const supabaseUrl = 'https://inzqnrrgvnoipprpiyuj.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImluenFucnJndm5vaXBwcnBpeXVqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ4ODA3NTYsImV4cCI6MjA3MDQ1Njc1Nn0.blVu8cAgJ1_a-0it1zEOdaBw4rFCga__pHpS7Hnt_4s';
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+        
+        let currentPage = 1;
+        const propertiesPerPage = 6;
+        let allProperties = [];
+        let filteredProperties = [];
+        
+        // Cargar propiedades al inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            handleURLParameters();
+            loadProperties();
+            loadDistricts();
+            setupEventListeners();
+        });
+        
+        function handleURLParameters() {
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // Manejar parámetro de operación
+            const operation = urlParams.get('operation');
+            if (operation) {
+                // Mostrar mensaje o aplicar filtro basado en la operación
+                const header = document.querySelector('.content-header h1');
+                if (operation === 'compra') {
+                    header.textContent = 'Propiedades en Venta';
+                } else if (operation === 'alquiler') {
+                    header.textContent = 'Propiedades en Alquiler';
+                }
+            }
+            
+            // Manejar parámetro de destacar propiedad
+            const highlightId = urlParams.get('highlight');
+            if (highlightId) {
+                // Guardamos el ID para destacarlo cuando se carguen las propiedades
+                window.highlightPropertyId = highlightId;
+            }
+        }
+        
+        async function loadProperties() {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            loadingOverlay.style.display = 'flex';
+            
+            try {
+                const { data, error } = await supabase
+                    .from('properties')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+                
+                if (error) throw error;
+                
+                allProperties = data || [];
+                filteredProperties = [...allProperties];
+                
+                // Debug: Mostrar los campos disponibles de la primera propiedad
+                if (allProperties.length > 0) {
+                    console.log('📊 Campos disponibles en las propiedades:', Object.keys(allProperties[0]));
+                    console.log('🏠 Ejemplo de propiedad:', allProperties[0]);
+                }
+                
+                console.log(`✅ Se cargaron ${allProperties.length} propiedades`);
+                
+                displayProperties();
+                setupPagination();
+            } catch (error) {
+                console.error('Error cargando propiedades:', error);
+                displayErrorMessage();
+            } finally {
+                loadingOverlay.style.display = 'none';
+            }
+        }
+        
+        // Función para cargar distritos dinámicamente desde Supabase
+        async function loadDistricts() {
+            try {
+                console.log('📍 Cargando distritos desde Supabase...');
+                
+                const { data: properties, error } = await supabase
+                    .from('properties')
+                    .select('location, district')
+                    .not('location', 'is', null)
+                    .not('district', 'is', null);
+                
+                if (error) {
+                    console.error('Error cargando distritos:', error);
+                    return;
+                }
+                
+                // Extraer distritos únicos (priorizar district sobre location)
+                const districts = new Set();
+                properties.forEach(property => {
+                    // Usar district si está disponible, sino usar location
+                    const district = property.district || property.location;
+                    if (district && district.trim()) {
+                        // Normalizar el texto: capitalizar primera letra de cada palabra
+                        const normalizedDistrict = district.trim()
+                            .split(' ')
+                            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                            .join(' ');
+                        districts.add(normalizedDistrict);
+                    }
+                });
+                
+                // Ordenar distritos alfabéticamente
+                const sortedDistricts = Array.from(districts).sort();
+                
+                console.log('📍 Distritos únicos encontrados:', sortedDistricts);
+                
+                // Llenar el select de distritos
+                const districtSelect = document.getElementById('districtFilter');
+                if (districtSelect) {
+                    // Limpiar opciones existentes (excepto la primera)
+                    while (districtSelect.children.length > 1) {
+                        districtSelect.removeChild(districtSelect.lastChild);
+                    }
+                    
+                    // Agregar distritos únicos
+                    sortedDistricts.forEach(district => {
+                        const option = document.createElement('option');
+                        option.value = district.toLowerCase();
+                        option.textContent = district;
+                        districtSelect.appendChild(option);
+                    });
+                    
+                    console.log(`✅ Se agregaron ${sortedDistricts.length} distritos únicos al filtro`);
+                }
+                
+            } catch (error) {
+                console.error('Error cargando distritos:', error);
+            }
+        }
+        
+        // Función para limpiar todos los filtros
+        function clearFilters() {
+            console.log('🧹 Limpiando todos los filtros...');
+            
+            // Limpiar campos de precio
+            document.getElementById('minPrice').value = '';
+            document.getElementById('maxPrice').value = '';
+            
+            // Resetear selects
+            document.getElementById('propertyTypeFilter').value = '';
+            document.getElementById('districtFilter').value = '';
+            document.getElementById('bedroomsFilter').value = '';
+            
+            // Limpiar campo de área
+            document.getElementById('minArea').value = '';
+            
+            // Resetear propiedades filtradas a todas las propiedades
+            filteredProperties = [...allProperties];
+            
+            // Volver a la primera página
+            currentPage = 1;
+            
+            // Mostrar todas las propiedades
+            displayProperties();
+            setupPagination();
+            
+            // Actualizar contador de filtros
+            updateFilterCounter();
+            
+            console.log('✅ Filtros limpiados, mostrando todas las propiedades');
+        }
+        
+        // Array de imágenes de propiedades de Unsplash
+        const propertyImages = [
+            'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=250&fit=crop&q=80',
+            'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400&h=250&fit=crop&q=80',
+            'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=400&h=250&fit=crop&q=80',
+            'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&h=250&fit=crop&q=80',
+            'https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=400&h=250&fit=crop&q=80',
+            'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&h=250&fit=crop&q=80',
+            'https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=400&h=250&fit=crop&q=80',
+            'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=400&h=250&fit=crop&q=80',
+            'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=400&h=250&fit=crop&q=80',
+            'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=250&fit=crop&q=80',
+            'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400&h=250&fit=crop&q=80',
+            'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=250&fit=crop&q=80',
+            'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=400&h=250&fit=crop&q=80',
+            'https://images.unsplash.com/photo-1494526585095-c41746248156?w=400&h=250&fit=crop&q=80',
+            'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=250&fit=crop&q=80'
+        ];
+        
+        function getRandomPropertyImage() {
+            const randomIndex = Math.floor(Math.random() * propertyImages.length);
+            return propertyImages[randomIndex];
+        }
+
+        function displayProperties() {
+            const container = document.getElementById('propertiesContainer');
+            const startIndex = (currentPage - 1) * propertiesPerPage;
+            const endIndex = startIndex + propertiesPerPage;
+            const propertiesToShow = filteredProperties.slice(startIndex, endIndex);
+            
+            // Array de imágenes de propiedades de Unsplash
+            const propertyImages = [
+                'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=250&fit=crop&q=80',
+                'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400&h=250&fit=crop&q=80',
+                'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=400&h=250&fit=crop&q=80',
+                'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&h=250&fit=crop&q=80',
+                'https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=400&h=250&fit=crop&q=80',
+                'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&h=250&fit=crop&q=80',
+                'https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=400&h=250&fit=crop&q=80',
+                'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=400&h=250&fit=crop&q=80',
+                'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=400&h=250&fit=crop&q=80',
+                'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=250&fit=crop&q=80',
+                // Imágenes de respaldo con diferentes IDs para mayor variabilidad
+                'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400&h=250&fit=crop&q=80',
+                'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=250&fit=crop&q=80',
+                'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=400&h=250&fit=crop&q=80',
+                'https://images.unsplash.com/photo-1494526585095-c41746248156?w=400&h=250&fit=crop&q=80',
+                'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=250&fit=crop&q=80'
+            ];
+            
+            function getRandomPropertyImage() {
+                const randomIndex = Math.floor(Math.random() * propertyImages.length);
+                return propertyImages[randomIndex];
+            }
+            
+            // Función para manejar errores de imagen con fallback
+            function getImageWithFallback(primaryUrl, fallbackUrl = null) {
+                if (!fallbackUrl) {
+                    fallbackUrl = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI1MCIgdmlld0JveD0iMCAwIDQwMCAyNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIyNTAiIGZpbGw9IiNGM0Y0RjYiLz48cGF0aCBkPSJNMTAwIDEwMEwyMDAgMTUwTDMwMCAxMDAiIHN0cm9rZT0iIzk3QTNBRiIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+PHRleHQgeD0iMjAwIiB5PSIxNDAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzY1NzM4QiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+UHJvcGllZGFkPC90ZXh0Pjwvc3ZnPg==';
+                }
+                return primaryUrl;
+            }
+            
+            if (propertiesToShow.length === 0) {
+                container.innerHTML = `
+                    <div class="no-properties" style="
+                        grid-column: 1 / -1; 
+                        text-align: center; 
+                        padding: 60px 20px; 
+                        color: #666;
+                        background: white;
+                        border-radius: 8px;
+                        margin: 20px 0;
+                    ">
+                        <h3 style="margin-bottom: 15px; color: #333; font-size: 1.5rem;">No se encontraron propiedades</h3>
+                        <p style="font-size: 1.1rem; margin-bottom: 20px;">Ajusta los filtros para ver más resultados</p>
+                        <button onclick="location.reload()" style="
+                            background: #ff4444; 
+                            color: white; 
+                            border: none; 
+                            padding: 10px 20px; 
+                            border-radius: 5px; 
+                            cursor: pointer;
+                            font-size: 1rem;
+                        ">Recargar página</button>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = propertiesToShow.map(property => {
+                const isHighlighted = window.highlightPropertyId && property.id == window.highlightPropertyId;
+                const randomImage = getRandomPropertyImage(); // Generar imagen aleatoria para cada propiedad
+                
+                // Formatear precio con separadores de miles
+                const formatPrice = (price) => {
+                    if (!price) return 'Consultar';
+                    return new Intl.NumberFormat('es-PE').format(price);
+                };
+                
+                // Obtener el tipo de propiedad
+                const propertyType = property.property_type || property.type || 'Propiedad';
+                
+                // Obtener ubicación completa
+                const location = property.location || property.district || 'Ubicación no especificada';
+                
+                // Obtener descripción
+                const description = property.description ? 
+                    (property.description.length > 120 ? property.description.substring(0, 120) + '...' : property.description) :
+                    'Excelente oportunidad de inversión. Propiedad en una ubicación privilegiada con fácil acceso a servicios.';
+                
+                return `
+                    <div class="property-card ${isHighlighted ? 'highlighted' : ''}" data-property-id="${property.id}" onclick="window.location.href='../detalledepartamentos.html?id=${property.id}'" style="cursor: pointer;">
+                        <div class="property-image" style="background-image: url('${randomImage}'); background-size: cover; background-position: center; height: 200px;">
+                            <div class="property-badge">${propertyType}</div>
+                            ${property.featured ? '<div class="featured-badge">⭐ Destacada</div>' : ''}
+                            ${isHighlighted ? '<div class="highlight-badge">⭐ Destacada</div>' : ''}
+                        </div>
+                        <div class="property-content">
+                            <h3 class="property-title">${property.title || 'Propiedad sin título'}</h3>
+                            <p class="property-location">📍 ${location}</p>
+                            <p class="property-description">${description}</p>
+                            <div class="property-details">
+                                ${property.bedrooms ? `<span class="detail-item">🛏️ ${property.bedrooms} dorm</span>` : ''}
+                                ${property.bathrooms ? `<span class="detail-item">🚿 ${property.bathrooms} baños</span>` : ''}
+                                ${property.area ? `<span class="detail-item">📐 ${property.area} m²</span>` : ''}
+                                ${property.parking_spots ? `<span class="detail-item">🚗 ${property.parking_spots} est</span>` : ''}
+                                ${property.floors && property.floors > 1 ? `<span class="detail-item">🏢 ${property.floors} pisos</span>` : ''}
+                                ${property.year_built ? `<span class="detail-item">🏗️ ${property.year_built}</span>` : ''}
+                            </div>
+                            <div class="property-price">
+                                S/ ${formatPrice(property.price)}
+                                ${property.price_usd ? `<span class="price-usd">USD ${formatPrice(property.price_usd)}</span>` : ''}
+                            </div>
+                            <div class="property-actions">
+                                <button class="contact-btn" onclick="event.stopPropagation(); contactWhatsApp(${property.id})">CONTACTAR</button>
+                                <button class="details-btn" onclick="event.stopPropagation(); window.location.href='../detalledepartamentos.html?id=${property.id}'">VER DETALLES</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            // Si hay una propiedad destacada, hacer scroll hacia ella
+            if (window.highlightPropertyId) {
+                setTimeout(() => {
+                    const highlightedCard = document.querySelector('.property-card.highlighted');
+                    if (highlightedCard) {
+                        highlightedCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        // Limpiar el highlight después de 5 segundos
+                        setTimeout(() => {
+                            window.highlightPropertyId = null;
+                            highlightedCard.classList.remove('highlighted');
+                            const badge = highlightedCard.querySelector('.highlight-badge');
+                            if (badge) badge.remove();
+                        }, 5000);
+                    }
+                }, 500);
+            }
+            
+            // Configurar event listeners para las tarjetas de propiedades
+            setupPropertyCardListeners();
+        }
+        
+        function setupPagination() {
+            const totalPages = Math.ceil(filteredProperties.length / propertiesPerPage);
+            const paginationContainer = document.getElementById('pagination');
+            
+            if (totalPages <= 1) {
+                paginationContainer.innerHTML = '';
+                return;
+            }
+            
+            let paginationHTML = '';
+            
+            // Botón anterior
+            if (currentPage > 1) {
+                paginationHTML += `<button data-page="${currentPage - 1}">Anterior</button>`;
+            }
+            
+            // Números de página
+            for (let i = 1; i <= totalPages; i++) {
+                paginationHTML += `<button class="${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
+            }
+            
+            // Botón siguiente
+            if (currentPage < totalPages) {
+                paginationHTML += `<button data-page="${currentPage + 1}">Siguiente</button>`;
+            }
+            
+            paginationContainer.innerHTML = paginationHTML;
+            
+            // Configurar event listeners para la paginación
+            setupPaginationListeners();
+        }
+        
+        function changePage(page) {
+            currentPage = page;
+            displayProperties();
+            setupPagination();
+            window.scrollTo(0, 0);
+        }
+        
+        function applyFilters() {
+            console.log('🔍 Aplicando filtros...');
+            
+            // Obtener valores de los filtros
+            const minPrice = document.getElementById('minPrice').value;
+            const maxPrice = document.getElementById('maxPrice').value;
+            const propertyType = document.getElementById('propertyTypeFilter').value;
+            const district = document.getElementById('districtFilter').value;
+            const bedrooms = document.getElementById('bedroomsFilter').value;
+            const minArea = document.getElementById('minArea').value;
+            
+            console.log('📊 Filtros aplicados:', {
+                minPrice,
+                maxPrice,
+                propertyType,
+                district,
+                bedrooms,
+                minArea
+            });
+            
+            // Filtrar propiedades
+            filteredProperties = allProperties.filter(property => {
+                // Filtro de precio mínimo
+                if (minPrice && property.price < parseInt(minPrice)) {
+                    return false;
+                }
+                
+                // Filtro de precio máximo
+                if (maxPrice && property.price > parseInt(maxPrice)) {
+                    return false;
+                }
+                
+                // Filtro de tipo de propiedad
+                if (propertyType && propertyType !== '') {
+                    const propType = property.property_type ? property.property_type.toLowerCase() : '';
+                    if (propType !== propertyType.toLowerCase()) {
+                        return false;
+                    }
+                }
+                
+                // Filtro de distrito
+                if (district && district !== '') {
+                    const propertyLocation = property.location ? property.location.toLowerCase() : '';
+                    const propertyDistrict = property.district ? property.district.toLowerCase() : '';
+                    const searchDistrict = district.toLowerCase();
+                    
+                    if (!propertyLocation.includes(searchDistrict) && !propertyDistrict.includes(searchDistrict)) {
+                        return false;
+                    }
+                }
+                
+                // Filtro de dormitorios
+                if (bedrooms && bedrooms !== '') {
+                    const propBedrooms = property.bedrooms ? parseInt(property.bedrooms) : 0;
+                    const filterBedrooms = parseInt(bedrooms);
+                    
+                    if (filterBedrooms === 5) {
+                        // 5+ dormitorios
+                        if (propBedrooms < 5) {
+                            return false;
+                        }
+                    } else {
+                        if (propBedrooms !== filterBedrooms) {
+                            return false;
+                        }
+                    }
+                }
+                
+                // Filtro de área mínima
+                if (minArea && minArea !== '') {
+                    const propArea = property.area ? parseInt(property.area) : 0;
+                    if (propArea < parseInt(minArea)) {
+                        return false;
+                    }
+                }
+                
+                return true;
+            });
+            
+            console.log(`✅ Se encontraron ${filteredProperties.length} propiedades después del filtrado`);
+            
+            // Resetear a la primera página y mostrar resultados
+            currentPage = 1;
+            displayProperties();
+            setupPagination();
+            
+            // Mostrar mensaje si no hay resultados
+            if (filteredProperties.length === 0) {
+                console.log('ℹ️ No se encontraron propiedades con los filtros aplicados');
+            }
+            
+            // Actualizar contador de filtros activos
+            updateFilterCounter();
+        }
+        
+        function updateFilterCounter() {
+            const minPrice = document.getElementById('minPrice').value;
+            const maxPrice = document.getElementById('maxPrice').value;
+            const propertyType = document.getElementById('propertyTypeFilter').value;
+            const district = document.getElementById('districtFilter').value;
+            const bedrooms = document.getElementById('bedroomsFilter').value;
+            const minArea = document.getElementById('minArea').value;
+            
+            let activeFilters = 0;
+            if (minPrice) activeFilters++;
+            if (maxPrice) activeFilters++;
+            if (propertyType) activeFilters++;
+            if (district) activeFilters++;
+            if (bedrooms) activeFilters++;
+            if (minArea) activeFilters++;
+            
+            const applyBtn = document.getElementById('applyFilterBtn');
+            if (activeFilters > 0) {
+                applyBtn.textContent = `Filtrar Propiedades (${activeFilters})`;
+                applyBtn.style.background = 'var(--secondary-color)';
+            } else {
+                applyBtn.textContent = 'Filtrar Propiedades';
+                applyBtn.style.background = 'var(--primary-color)';
+            }
+        }
+        
+        function clearFilters() {
+            console.log('🧹 Limpiando filtros...');
+            
+            // Limpiar campos de precio
+            document.getElementById('minPrice').value = '';
+            document.getElementById('maxPrice').value = '';
+            
+            // Resetear select de ubicación
+            document.getElementById('locationFilter').value = '';
+            
+            // Desmarcar todos los checkboxes
+            document.querySelectorAll('.checkbox-group input[type="checkbox"]').forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            
+            // Mostrar todas las propiedades
+            filteredProperties = [...allProperties];
+            currentPage = 1;
+            displayProperties();
+            setupPagination();
+            
+            console.log('✅ Filtros limpiados, mostrando todas las propiedades');
+            
+            // Actualizar contador de filtros
+            updateFilterCounter();
+        }
+        
+        function openPropertyModal(propertyId) {
+            console.log(`🔍 Abriendo modal para propiedad ID: ${propertyId}`);
+            const property = allProperties.find(p => p.id === propertyId);
+            if (!property) {
+                console.error(`❌ No se encontró la propiedad con ID: ${propertyId}`);
+                return;
+            }
+            
+            console.log('✅ Propiedad encontrada:', property);
+            
+            // Array de imágenes para el modal (puede ser diferente o la misma)
+            const propertyImages = [
+                'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&h=400&fit=crop&q=80',
+                'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=600&h=400&fit=crop&q=80',
+                'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&h=400&fit=crop&q=80',
+                'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&h=400&fit=crop&q=80',
+                'https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=600&h=400&fit=crop&q=80'
+            ];
+            
+            function getRandomPropertyImage() {
+                return propertyImages[Math.floor(Math.random() * propertyImages.length)];
+            }
+            
+            const modalBody = document.getElementById('modalBody');
+            modalBody.innerHTML = `
+                <div class="modal-property">
+                    <img src="${getRandomPropertyImage()}" 
+                         alt="${property.title}" style="width: 100%; height: 350px; object-fit: cover; border-radius: 12px;">
+                    <h2>${property.title}</h2>
+                    <p class="modal-location">📍 ${property.location || property.district || 'Ubicación no especificada'}</p>
+                    <p class="modal-description">${property.description || 'Descripción no disponible'}</p>
+                    
+                    <div class="modal-details">
+                        <div class="detail-item">
+                            <span>🏠 Tipo de Propiedad:</span>
+                            <span>${property.property_type || 'N/A'}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🛏️ Dormitorios:</span>
+                            <span>${property.bedrooms || 'N/A'}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🚿 Baños:</span>
+                            <span>${property.bathrooms || 'N/A'}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>📐 Área Total:</span>
+                            <span>${property.area ? property.area + ' m²' : 'N/A'}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🚗 Estacionamientos:</span>
+                            <span>${property.parking_spots || 'N/A'}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>� Pisos:</span>
+                            <span>${property.floors || 'N/A'}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🏗️ Año de Construcción:</span>
+                            <span>${property.year_built || 'N/A'}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>📍 Distrito:</span>
+                            <span>${property.district || 'N/A'}</span>
+                        </div>
+                        ${property.featured ? `
+                        <div class="detail-item">
+                            <span>⭐ Estado:</span>
+                            <span style="color: var(--secondary-color); font-weight: bold;">Propiedad Destacada</span>
+                        </div>
+                        ` : ''}
+                    </div>
+                    
+                    <div class="modal-price">
+                        S/ ${property.price ? new Intl.NumberFormat('es-PE').format(property.price) : 'Consultar'}
+                        ${property.price_usd ? `<div class="price-usd">USD ${new Intl.NumberFormat('en-US').format(property.price_usd)}</div>` : ''}
+                    </div>
+                    
+                    ${property.features ? `
+                    <div class="modal-features">
+                        <h3>Características Adicionales:</h3>
+                        <div class="features-list">
+                            ${typeof property.features === 'string' ? 
+                                JSON.parse(property.features).map(feature => `<span class="feature-tag">${feature}</span>`).join('') :
+                                Array.isArray(property.features) ? 
+                                property.features.map(feature => `<span class="feature-tag">${feature}</span>`).join('') :
+                                Object.entries(property.features).map(([key, value]) => `<span class="feature-tag">${key}: ${value}</span>`).join('')
+                            }
+                        </div>
+                    </div>
+                    ` : ''}
+                    
+                    <div class="modal-actions">
+                        <button class="contact-btn-large" onclick="contactWhatsApp(${property.id})">CONTACTAR POR WHATSAPP</button>
+                        <button class="info-btn" onclick="requestMoreInfo(${property.id})">MÁS INFORMACIÓN</button>
+                    </div>
+                </div>
+            `;
+            
+            const modal = document.getElementById('propertyModal');
+            modal.style.display = 'flex';
+            console.log('✅ Modal abierto');
+        }
+        
+        function closeModal() {
+            document.getElementById('propertyModal').style.display = 'none';
+        }
+        
+        function contactWhatsApp(propertyId) {
+            const property = allProperties.find(p => p.id === propertyId);
+            if (!property) return;
+            
+            const message = `¡Hola! Me interesa la propiedad "${property.title}" ubicada en ${property.location}. ¿Podrían darme más información?`;
+            const whatsappNumber = "51999888777"; // Reemplaza con tu número
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+        
+        function requestMoreInfo(propertyId) {
+            const property = allProperties.find(p => p.id === propertyId);
+            if (!property) return;
+            
+            alert(`Solicitud de información para: ${property.title}\n\nEn breve nos comunicaremos contigo para brindarte más detalles.`);
+            // Aquí podrías agregar lógica para enviar un email o guardar la solicitud
+        }
+        
+        function displayErrorMessage() {
+            const container = document.getElementById('propertiesContainer');
+            container.innerHTML = '<div class="error-message">Error al cargar las propiedades. Por favor, intenta de nuevo.</div>';
+        }
+        
+        // View toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const viewButtons = document.querySelectorAll('.view-btn');
+            const propertiesContainer = document.getElementById('propertiesContainer');
+            
+            viewButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    viewButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const view = this.dataset.view;
+                    if (view === 'list') {
+                        propertiesContainer.classList.add('list-view');
+                    } else {
+                        propertiesContainer.classList.remove('list-view');
+                    }
+                });
+            });
+        });
+        
+        function setupEventListeners() {
+            console.log('🔧 Configurando event listeners...');
+            
+            // Event listener para el botón de aplicar filtros
+            const applyFilterBtn = document.getElementById('applyFilterBtn');
+            if (applyFilterBtn) {
+                applyFilterBtn.addEventListener('click', applyFilters);
+                console.log('✅ Event listener para aplicar filtros configurado');
+            }
+            
+            // Event listener para el botón de limpiar filtros
+            const clearFilterBtn = document.getElementById('clearFilterBtn');
+            if (clearFilterBtn) {
+                clearFilterBtn.addEventListener('click', clearFilters);
+                console.log('✅ Event listener para limpiar filtros configurado');
+            }
+            
+            // Event listeners para los filtros select
+            const propertyTypeFilter = document.getElementById('propertyTypeFilter');
+            const districtFilter = document.getElementById('districtFilter');
+            const bedroomsFilter = document.getElementById('bedroomsFilter');
+            
+            if (propertyTypeFilter) {
+                propertyTypeFilter.addEventListener('change', () => {
+                    updateFilterCounter();
+                });
+            }
+            
+            if (districtFilter) {
+                districtFilter.addEventListener('change', () => {
+                    updateFilterCounter();
+                });
+            }
+            
+            if (bedroomsFilter) {
+                bedroomsFilter.addEventListener('change', () => {
+                    updateFilterCounter();
+                });
+            }
+            
+            // Event listeners para campos de precio y área
+            const minPrice = document.getElementById('minPrice');
+            const maxPrice = document.getElementById('maxPrice');
+            const minArea = document.getElementById('minArea');
+            
+            if (minPrice) {
+                minPrice.addEventListener('input', updateFilterCounter);
+                minPrice.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        applyFilters();
+                    }
+                });
+            }
+            
+            if (maxPrice) {
+                maxPrice.addEventListener('input', updateFilterCounter);
+                maxPrice.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        applyFilters();
+                    }
+                });
+            }
+            
+            if (minArea) {
+                minArea.addEventListener('input', updateFilterCounter);
+                minArea.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        applyFilters();
+                    }
+                });
+            }
+            
+            // Event listener para cerrar modal
+            const modalCloseBtn = document.getElementById('modalCloseBtn');
+            if (modalCloseBtn) {
+                modalCloseBtn.addEventListener('click', closeModal);
+            }
+            
+            // Event listener para cerrar modal al hacer clic fuera
+            const modalOverlay = document.getElementById('propertyModal');
+            if (modalOverlay) {
+                modalOverlay.addEventListener('click', function(e) {
+                    if (e.target === modalOverlay) {
+                        closeModal();
+                    }
+                });
+            }
+            
+            // Manejar errores de imágenes
+            document.addEventListener('error', function(e) {
+                if (e.target.tagName === 'IMG') {
+                    e.target.src = '/images/default-property.svg';
+                }
+            }, true);
+            
+            console.log('✅ Todos los event listeners configurados');
+        }
+        
+        function setupPropertyCardListeners() {
+            // Event listeners para las tarjetas de propiedades
+            console.log('🔧 Configurando event listeners para las tarjetas...');
+            const propertyCards = document.querySelectorAll('.property-card');
+            console.log(`📋 Se encontraron ${propertyCards.length} tarjetas de propiedades`);
+            
+            propertyCards.forEach((card, index) => {
+                card.addEventListener('click', function(e) {
+                    // Evitar que el click en el botón CONTACTAR abra el modal
+                    if (e.target.closest('.contact-btn')) {
+                        return;
+                    }
+                    
+                    const propertyId = this.getAttribute('data-property-id');
+                    console.log(`🖱️ Click en tarjeta ${index + 1}, ID: ${propertyId}`);
+                    if (propertyId) {
+                        openPropertyModal(parseInt(propertyId));
+                    }
+                });
+                
+                // Agregar cursor pointer para mostrar que es clickeable
+                card.style.cursor = 'pointer';
+            });
+        }
+        
+        function setupPaginationListeners() {
+            // Event listeners para los botones de paginación
+            document.querySelectorAll('#pagination button').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const page = this.getAttribute('data-page');
+                    if (page) {
+                        changePage(parseInt(page));
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>

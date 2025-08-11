@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tecnómadas - Encuentra tu Propiedad Soñada</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/homepage.css">
+</head>
+<body>
+    <!-- Header Principal con branding Tecnómadas -->
+    <header class="main-header tecnomadas-header">
+        <div class="header-content">
+            <div class="logo tecnomadas-logo">
+                <div class="logo-icon tecnomadas-icon">�️</div>
+                <span>Tecnómadas</span>
+            </div>
+            
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="/" class="active">INICIO</a></li>
+                    <li><a href="catalogo.html">CATÁLOGO</a></li>
+                    <li><a href="#vender">VENDE O ALQUILA</a></li>
+                    <li><a href="#encuentranos">ENCUÉNTRANOS</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="whatsapp-header">
+                    📱 WhatsApp
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sección Hero Principal -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    ENCUENTRA TU PROPIEDAD<br>
+                    <span class="highlight">SOÑADA HOY</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Ubicación estratégica cerca del centro comercial, colegios y hospitales. Excelente conectividad con las principales avenidas. Descubre todas nuestras propiedades disponibles.
+                </p>
+                <div class="hero-buttons">
+                    <a href="catalogo.html" class="hero-cta-btn">VER CATÁLOGO</a>
+                    <button class="hero-secondary-btn" onclick="scrollToContact()">CONTACTAR ASESOR</button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Edificio moderno" class="building-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Promociones de la semana -->
+    <section class="promotion-section">
+        <div class="section-header">
+            <h2 class="section-title">Promociones de la semana</h2>
+        </div>
+        <div class="properties-grid" id="promotionProperties">
+            <!-- Las 3 propiedades más baratas se cargarán dinámicamente -->
+        </div>
+    </section>
+
+    <!-- Sección de Confianza -->
+    <section class="trust-section">
+        <div class="trust-content">
+            <div class="trust-text">
+                <h2 class="trust-title">
+                    Compra Rápido,<br>
+                    Tranquilo y Seguro
+                </h2>
+                <ul class="trust-features">
+                    <li>✓ Fácil</li>
+                    <li>✓ Garantía</li>
+                    <li>✓ Seguridad</li>
+                    <li>✓ Atención Personalizada</li>
+                    <li>✓ Respaldo</li>
+                    <li>✓ Transparencia</li>
+                </ul>
+            </div>
+            <div class="trust-image">
+                <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Confianza y seguridad" class="trust-img">
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Contacto Principal -->
+    <section class="contact-section">
+        <div class="contact-content">
+            <div class="contact-text">
+                <h2 class="contact-title">
+                    COMPRA O<br>
+                    VENDE EN MINUTOS
+                </h2>
+                <p class="contact-subtitle">
+                    El mundo inmobiliario disponible con las mejores tasas del mercado. Nosotros asistimos tu solicitud con una sola que no requiere de mucho trámite.
+                </p>
+            </div>
+            <div class="contact-form-container">
+                <h3>Conversa con un asesor</h3>
+                <form class="contact-form" id="contactForm">
+                    <input type="text" name="nombre" placeholder="Nombre" required>
+                    <input type="email" name="email" placeholder="Correo de contacto" required>
+                    <input type="text" name="dni" placeholder="DNI" required>
+                    <input type="tel" name="telefono" placeholder="Teléfono" required>
+                    <select name="tipo_operacion" required>
+                        <option value="">Tipo de Operación</option>
+                        <option value="compra">Compra</option>
+                        <option value="venta">Venta</option>
+                        <option value="alquiler">Alquiler</option>
+                    </select>
+                    <button type="submit" class="submit-btn">ENVIAR</button>
+                    <a href="catalogo.html" class="catalog-btn">VER PROPIEDADES DISPONIBLES</a>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Educativa -->
+    <section class="education-section">
+        <h2 class="section-title">Aprende más sobre</h2>
+        <div class="education-grid">
+            <div class="education-card">
+                <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Comprando tu primer terreno">
+                <div class="card-content">
+                    <h3>COMPRANDO TU PRIMER TERRENO</h3>
+                    <h4>GUÍA ESENCIAL</h4>
+                </div>
+            </div>
+            <div class="education-card">
+                <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Comprando tu primer terreno">
+                <div class="card-content">
+                    <h3>COMPRANDO TU PRIMER TERRENO</h3>
+                    <h4>GUÍA ESENCIAL</h4>
+                </div>
+            </div>
+            <div class="education-card">
+                <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Comprando tu primer terreno">
+                <div class="card-content">
+                    <h3>COMPRANDO TU PRIMER TERRENO</h3>
+                    <h4>GUÍA ESENCIAL</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Tecnómadas</h3>
+                <p>Tu portal inmobiliario de confianza</p>
+                <div class="social-links">
+                    <a href="#">📘 Facebook</a>
+                    <a href="#">📷 Instagram</a>
+                    <a href="#">🐦 Twitter</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>📞 +51 999 888 777</p>
+                <p>✉️ info@tecnomadas.com</p>
+                <p>📍 Lima, Perú</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>HORARIO DE ATENCIÓN</h4>
+                <div class="footer-schedule">
+                    <p>Lunes 9am a 6pm</p>
+                    <p>Martes 9am a 6pm</p>
+                    <p>Miércoles 9am a 6pm</p>
+                    <p>Jueves 9am a 6pm</p>
+                    <p>Viernes 9am a 6pm</p>
+                    <p>Sábado 9am a 6pm</p>
+                    <p>Domingo 9am a 6pm</p>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <p><a href="#">Términos y Condiciones</a></p>
+                <p><a href="#">Política de Privacidad</a></p>
+                <p><a href="#">Aviso Legal</a></p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Tecnómadas. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // Configuración de Supabase
+        const supabaseUrl = 'https://inzqnrrgvnoipprpiyuj.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImluenFucnJndm5vaXBwcnBpeXVqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ4ODA3NTYsImV4cCI6MjA3MDQ1Njc1Nn0.blVu8cAgJ1_a-0it1zEOdaBw4rFCga__pHpS7Hnt_4s';
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+        // Cargar propiedades en promoción
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPromotionProperties();
+            setupContactForm();
+        });
+
+        async function loadPromotionProperties() {
+            try {
+                const { data, error } = await supabase
+                    .from('properties')
+                    .select('*')
+                    .order('price', { ascending: true }) // Ordenar por precio ascendente
+                    .limit(3); // Obtener solo las 3 más baratas
+
+                if (error) throw error;
+
+                const container = document.getElementById('promotionProperties');
+                
+                // Agregar propiedades reales si existen
+                if (data && data.length > 0) {
+                    const propertiesHTML = data.map(property => `
+                        <div class="property-card" onclick="window.location.href='../detalledepartamentos.html?id=${property.id}'" style="cursor: pointer;">
+                            <div class="property-image">
+                                <img src="${property.image_url || 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'}" 
+                                     alt="${property.title || 'Propiedad'}" >
+                            </div>
+                            <div class="property-info">
+                                <h3 class="property-title">${property.title || 'Propiedad'}</h3>
+                                <a href="../detalledepartamentos.html?id=${property.id}" class="property-btn" onclick="event.stopPropagation();">VER DETALLES</a>
+                            </div>
+                        </div>
+                    `).join('');
+                    
+                    container.innerHTML = propertiesHTML;
+                } else {
+                    // Si no hay propiedades, mostrar mensaje profesional
+                    container.innerHTML = `
+                        <div style="text-align: center; padding: 60px 20px; color: #666; width: 100%; grid-column: 1 / -1;">
+                            <h3 style="margin-bottom: 15px; color: #333;">Próximamente nuevas propiedades</h3>
+                            <p style="font-size: 1.1rem;">Estamos preparando las mejores opciones para ti</p>
+                            <p style="color: #ff4444; margin-top: 10px;">Contáctanos para conocer nuestras propiedades disponibles</p>
+                        </div>
+                    `;
+                }
+                
+            } catch (error) {
+                console.error('Error cargando propiedades:', error);
+                // En caso de error, mostrar mensaje profesional
+                document.getElementById('promotionProperties').innerHTML = `
+                    <div style="text-align: center; padding: 60px 20px; color: #666; width: 100%; grid-column: 1 / -1;">
+                        <h3 style="margin-bottom: 15px; color: #ff4444;">Error al cargar las propiedades</h3>
+                        <p style="font-size: 1.1rem;">Por favor, recarga la página o contáctanos directamente</p>
+                        <button onclick="location.reload()" style="margin-top: 20px; background: #ff4444; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Recargar</button>
+                    </div>
+                `;
+            }
+        }
+
+        function scrollToContact() {
+            document.querySelector('.contact-section').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+
+        function setupContactForm() {
+            const form = document.getElementById('contactForm');
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(form);
+                const contactData = {
+                    nombre: formData.get('nombre'),
+                    email: formData.get('email'),
+                    dni: formData.get('dni'),
+                    telefono: formData.get('telefono'),
+                    tipo_operacion: formData.get('tipo_operacion')
+                };
+
+                try {
+                    const { data, error } = await supabase
+                        .from('contacts')
+                        .insert([contactData]);
+
+                    if (error) throw error;
+
+                    alert('¡Gracias! Tu consulta ha sido enviada. Un asesor se contactará contigo pronto.');
+                    form.reset();
+                } catch (error) {
+                    console.error('Error enviando formulario:', error);
+                    alert('Hubo un error al enviar tu consulta. Por favor, intenta nuevamente.');
+                }
+            });
+        }
+
+
+    </script>
+</body>
+</html>

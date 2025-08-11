@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - TecnoMadas</title>
+    <link rel="stylesheet" href="../assets/css/admin-dashboard.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../assets/images/logo.png" alt="TecnoMadas" class="logo" onerror="this.style.display='none'">
+                <h2>TecnoMadas</h2>
+                <span class="admin-badge">Admin</span>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item active">
+                        <a href="#dashboard" data-section="dashboard">
+                            <span class="nav-icon">📊</span>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#properties" data-section="properties">
+                            <span class="nav-icon">🏠</span>
+                            Propiedades
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button id="logoutButton" class="logout-button">
+                    <span class="nav-icon">🚪</span>
+                    Cerrar Sesión
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <div class="header-left">
+                    <button class="menu-toggle" id="menuToggle">☰</button>
+                    <h1 id="pageTitle">Dashboard</h1>
+                </div>
+                <div class="header-right">
+                    <div class="user-info">
+                        <span class="user-name" id="userName">Admin</span>
+                        <div class="user-avatar">👤</div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Dashboard Section -->
+                <section id="dashboard-section" class="content-section active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">🏠</div>
+                            <div class="stat-content">
+                                <h3>Total Propiedades</h3>
+                                <p class="stat-number" id="totalProperties">-</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">👀</div>
+                            <div class="stat-content">
+                                <h3>Vistas Hoy</h3>
+                                <p class="stat-number" id="viewsToday">-</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">💬</div>
+                            <div class="stat-content">
+                                <h3>Consultas Nuevas</h3>
+                                <p class="stat-number" id="newInquiries">-</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">💰</div>
+                            <div class="stat-content">
+                                <h3>Valor Total</h3>
+                                <p class="stat-number" id="totalValue">-</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-charts">
+                        <div class="chart-card">
+                            <h3>Propiedades por Tipo</h3>
+                            <div class="chart-placeholder">
+                                <p>Gráfico de propiedades por tipo</p>
+                            </div>
+                        </div>
+                        <div class="chart-card">
+                            <h3>Consultas del Mes</h3>
+                            <div class="chart-placeholder">
+                                <p>Gráfico de consultas mensuales</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Properties Section -->
+                <section id="properties-section" class="content-section">
+                    <div class="section-header">
+                        <h2>Gestión de Propiedades</h2>
+                        <button class="add-button" id="addPropertyButton">
+                            <span>+</span> Nueva Propiedad
+                        </button>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table class="data-table" id="propertiesTable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Título</th>
+                                    <th>Tipo</th>
+                                    <th>Precio</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Dynamic content -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal for Property Form -->
+    <div id="propertyModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">Nueva Propiedad</h2>
+            <form id="propertyForm" class="property-form">
+                <!-- Form fields will be added by JavaScript -->
+            </form>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+        <p>Cargando...</p>
+    </div>
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Configuration -->
+    <script src="../assets/js/config.js"></script>
+    <!-- Auth Logic -->
+    <script src="../assets/js/admin-auth.js"></script>
+    <!-- Dashboard Logic -->
+    <script src="../assets/js/admin-dashboard.js"></script>
+</body>
+</html>
